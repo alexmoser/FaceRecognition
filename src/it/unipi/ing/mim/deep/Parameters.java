@@ -7,13 +7,7 @@ public class Parameters {
 	//DEEP parameters
 	public static final String DEEP_PROTO = "data/vgg_face_caffe/VGG_FACE_deploy.prototxt";
 	public static final String DEEP_MODEL = "data/vgg_face_caffe/VGG_FACE.caffemodel";
-	public static final String DEEP_MEAN_IMG = "data/vgg_face_caffe/ak.png";
-
-	/*
-	public static final String DEEP_PROTO = "data/caffe/train_val.prototxt";
-	public static final String DEEP_MODEL = "data/caffe/bvlc_reference_caffenet.caffemodel";
-	public static final String DEEP_MEAN_IMG = "data/caffe/meanImage.png";
-	*/
+	public static final String DEEP_MEAN_IMG = "data/vgg_face_caffe/mean.png";
 	
 	//Test source file
 	public static final String TEST_FILE = "data/pairsDevTest.txt";
@@ -24,6 +18,9 @@ public class Parameters {
 	
 	//Image Source Folder
 	public static final File SRC_FOLDER = new File("data/lfw_funneled");
+	
+	//Output File Path
+	public static final File DISTANCES_FILE = new File("out/results.csv"); 
 	
 	//non usati per adesso
 	

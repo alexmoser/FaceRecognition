@@ -4,11 +4,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+import utilities.CsvFileWriter;
+
 public class FaceRecognitionMain {
 
 	public static void main(String [] args) throws Exception{
 		
 		String imgPath1, imgPath2;
+		CsvFileWriter resultsFile = new CsvFileWriter("distance", Parameters.DISTANCES_FILE);
 	
 		FileReader source = new FileReader(Parameters.TEST_FILE);
 	    BufferedReader b = new BufferedReader(source);
@@ -43,8 +46,17 @@ public class FaceRecognitionMain {
 			
 			distances[i] = imgDescriptor1.distance(imgDescriptor2);
 			System.out.println("distance " + i + " : " + distances[i]);
+
+			if(i==0) 
+				resultsFile.addLine("equals-pairs");
+			if(i==count) 
+				resultsFile.addLine("non-equals-pairs");
+			
+			// print distances to a file 
+			resultsFile.addLine(Double.toString(distances[i]));
 	    }
 	
+	    resultsFile.closeFile();
 		b.close();
 		source.close();
 	}
