@@ -1,4 +1,4 @@
-package utilities;
+package it.unipi.ing.mim.utilities;
 
 import java.io.File;
 import java.io.FileOutputStream;

@@ -22,6 +22,9 @@ public class Parameters {
 	//Output File Path
 	public static final File DISTANCES_FILE = new File("out/results.csv"); 
 	
+	//Threshold chosen statistically
+	public static final float THRESHOLD = 1.2507f;
+	
 	//non usati per adesso
 	
 	//Features Storage File
