@@ -1,9 +1,12 @@
-package it.unipi.ing.mim.deep;
+package facerecognition;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+import it.unipi.ing.mim.deep.DNNExtractor;
+import it.unipi.ing.mim.deep.ImgDescriptor;
+import it.unipi.ing.mim.deep.Parameters;
 import utilities.CsvFileWriter;
 
 public class FaceRecognitionMain {
