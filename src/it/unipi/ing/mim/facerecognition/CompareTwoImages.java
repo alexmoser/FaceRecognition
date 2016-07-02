@@ -5,7 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import it.unipi.ing.mim.deep.Parameters;
+import it.unipi.ing.mim.distance.DistanceEvaluator;
+import it.unipi.ing.mim.featuresextraction.ExtractionParameters;
 
 public class CompareTwoImages {
 
@@ -13,6 +14,8 @@ public class CompareTwoImages {
 	
 		String 	imgPath1 = null, 
 				imgPath2 = null;
+		
+		DistanceEvaluator distanceEvaluator = new DistanceEvaluator();
 		
 		System.out.println("Enter images paths : ");   
 		try{
@@ -25,7 +28,7 @@ public class CompareTwoImages {
 			e.printStackTrace();
 		}
 	      
-		if(DistancesEvaluator.same(imgPath1, imgPath2))
+		if(distanceEvaluator.evaluateDistance(imgPath1, imgPath2) <= RecognitionParameters.THRESHOLD)
 			System.out.println("SAME");
 		else
 			System.out.println("NOT SAME");

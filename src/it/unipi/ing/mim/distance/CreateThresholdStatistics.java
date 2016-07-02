@@ -1,12 +1,11 @@
-package it.unipi.ing.mim.utilities;
+package it.unipi.ing.mim.distance;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 
-import it.unipi.ing.mim.deep.Parameters;
+import it.unipi.ing.mim.utilities.CsvFileWriter;
 
-public class ThresholdEvaluator {
+public class CreateThresholdStatistics {
 
 	//min and max are computed based on the previous distances calculated
 	private static final float MIN_THRESHOLD = 0.46f;
@@ -18,14 +17,13 @@ public class ThresholdEvaluator {
 		int falsePositive = 0;
 		int falseNegative = 0;
 		int correct = 0;
-		File file = new File("out/thresholds.csv");
 		String tmp;
 		
-		CsvFileWriter fileWriter = new CsvFileWriter("Threshold,Correct,FP,FN", file);
+		CsvFileWriter fileWriter = new CsvFileWriter("Threshold,Correct,FP,FN", DistanceParameters.STATISTICS_FILE);
 		
 		for(float threshold = MIN_THRESHOLD; threshold <= MAX_THRESHOLD; threshold += STEP){
 			
-			FileReader source = new FileReader(Parameters.DISTANCES_FILE);
+			FileReader source = new FileReader(DistanceParameters.DISTANCES_FILE);
 			BufferedReader b = new BufferedReader(source);
 			
 		    //read the first line (The first line is simply the string Distances)

@@ -1,4 +1,4 @@
-package it.unipi.ing.mim.deep;
+package it.unipi.ing.mim.featuresextraction;
 
 import static org.bytedeco.javacpp.opencv_core.CV_32FC3;
 import static org.bytedeco.javacpp.opencv_core.subtract;
@@ -24,7 +24,7 @@ public class DNNExtractor {
 	
 	public DNNExtractor() {		
 			//Create the importer of Caffe framework network
-			Importer importer = createCaffeImporter(new File(Parameters.DEEP_PROTO).getAbsolutePath(), new File(Parameters.DEEP_MODEL).getAbsolutePath());
+			Importer importer = createCaffeImporter(new File(ExtractionParameters.DEEP_PROTO).getAbsolutePath(), new File(ExtractionParameters.DEEP_MODEL).getAbsolutePath());
 			
 			//Initialize the network
 			net = new Net();
@@ -33,9 +33,9 @@ public class DNNExtractor {
 			importer.populateNet(net);
 	        importer.close();
 	        
-	        imgSize = new Size(Parameters.IMG_WIDTH, Parameters.IMG_HEIGHT);
+	        imgSize = new Size(ExtractionParameters.IMG_WIDTH, ExtractionParameters.IMG_HEIGHT);
 
-			meanImg = imread(new File(Parameters.DEEP_MEAN_IMG).getAbsolutePath());
+			meanImg = imread(new File(ExtractionParameters.DEEP_MEAN_IMG).getAbsolutePath());
 			meanImg.convertTo(meanImg, CV_32FC3);
 			resize(meanImg, meanImg, imgSize);
 	}

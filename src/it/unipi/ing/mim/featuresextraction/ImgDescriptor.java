@@ -1,4 +1,4 @@
-package it.unipi.ing.mim.deep;
+package it.unipi.ing.mim.featuresextraction;
 
 import java.io.Serializable;
 

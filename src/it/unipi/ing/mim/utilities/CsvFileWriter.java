@@ -7,7 +7,6 @@ import java.io.OutputStreamWriter;
 
 public class CsvFileWriter {
 	
-	private static final String COMMA_DELIMITER = ",";
 	private static final String NEW_LINE_SEPARATOR = "\n";
 	
 	private File file;
