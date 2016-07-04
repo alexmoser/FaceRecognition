@@ -30,6 +30,8 @@ public class CreateSeqFeaturesFileFaceDetection {
 		
 		//Scan each directory
 		for (int i = 0; i < dirList.length; i++){
+			if(!dirList[i].isDirectory())
+				continue;
 			//Get all the files in the directory
 			File [] fileList = dirList[i].listFiles();
 
@@ -37,6 +39,9 @@ public class CreateSeqFeaturesFileFaceDetection {
 			//Put the features in an ImgDescriptor object and add it in the descs List
 			//Descriptor ID is the file name
 			for (int j = 0; j < fileList.length; j++){ 
+				//skip the system files
+				if(fileList[j].isHidden())
+					continue;
 				//Face Detection
 				FaceDetection faceDetector = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
 				Mat img = faceDetector.getFace(fileList[j].getAbsolutePath());

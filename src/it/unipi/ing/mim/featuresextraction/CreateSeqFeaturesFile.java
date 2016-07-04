@@ -33,7 +33,10 @@ public class CreateSeqFeaturesFile {
 			//Extract the deep features for each file
 			//Put the features in an ImgDescriptor object and add it in the descs List
 			//Descriptor ID is the file name
-			for (int j = 0; j < fileList.length; j++){ 
+			for (int j = 0; j < fileList.length; j++){
+				//skip the system files
+				if(fileList[j].isHidden())
+					continue;
 				float [] features = obj.extract(fileList[j], ExtractionParameters.DEEP_LAYER);
 				ImgDescriptor temp = new ImgDescriptor(features, fileList[j].getName());
 				descs.add(temp);
