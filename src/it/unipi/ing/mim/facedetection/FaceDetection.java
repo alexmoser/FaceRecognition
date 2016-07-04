@@ -23,7 +23,7 @@ public class FaceDetection {
 	private RectVector detect(Mat img, Size minSize, Size maxSize) {
 		//detect faces
 		RectVector face = new RectVector();
-		face_cascade.detectMultiScale(img, face, 1.05, 4, CV_HAAR_DO_CANNY_PRUNING, minSize, maxSize);
+		face_cascade.detectMultiScale(img, face, 1.2, 3, CV_HAAR_DO_CANNY_PRUNING, minSize, maxSize);
 		return face;
 	}
 	
@@ -40,12 +40,19 @@ public class FaceDetection {
 
 			// Face
 			RectVector faces = detect(img, DetectionParameters.FACE_MIN_SIZE, DetectionParameters.FACE_MAX_SIZE);
-
+			
+			//TODO chiedere come gestire la detection di più facce
 			if(faces.size() > 1){
 				System.err.println("More than one face detected, only one selected!");
 			}
 			
 			img = Utility.getImageROI(img, faces.get(0));
+			
+			/*//debug 
+			for(int i = 0; i < faces.size(); i++){
+				Utility.highlight(img, faces.get(i));
+			}
+			*/
 			
 		} catch (Exception e) {
 			e.printStackTrace();

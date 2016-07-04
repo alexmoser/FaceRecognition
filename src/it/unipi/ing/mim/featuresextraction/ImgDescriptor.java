@@ -77,5 +77,12 @@ public class ImgDescriptor implements Serializable, Comparable<ImgDescriptor> {
 		
 		return norm2;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		ImgDescriptor obj = (ImgDescriptor) o;
+
+		return (obj.id.equals(this.id));
+	}
     
 }

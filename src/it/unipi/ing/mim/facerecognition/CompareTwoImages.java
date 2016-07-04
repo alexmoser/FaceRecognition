@@ -1,6 +1,7 @@
 package it.unipi.ing.mim.facerecognition;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,8 +15,15 @@ public class CompareTwoImages {
 	
 		String 	imgPath1 = null, 
 				imgPath2 = null;
+		DistanceEvaluator distanceEvaluator = null;
 		
-		DistanceEvaluator distanceEvaluator = new DistanceEvaluator();
+		try {
+			distanceEvaluator = new DistanceEvaluator(ExtractionParameters.STORAGE_FILE);
+		}
+		catch(IOException e){
+			System.err.println("Features file not found, please launch CreateSeqFeaturesFile first!");
+			return;
+		}
 		
 		System.out.println("Enter images paths : ");   
 		try{
@@ -27,8 +35,11 @@ public class CompareTwoImages {
 		{
 			e.printStackTrace();
 		}
-	      
-		if(distanceEvaluator.evaluateDistance(imgPath1, imgPath2) <= RecognitionParameters.THRESHOLD)
+	    
+		File img1 = new File(imgPath1);
+		File img2 = new File(imgPath2);
+		
+		if(distanceEvaluator.evaluateDistance(img1, img2) <= RecognitionParameters.THRESHOLD)
 			System.out.println("SAME");
 		else
 			System.out.println("NOT SAME");

@@ -1,5 +1,7 @@
 package it.unipi.ing.mim.featuresextraction;
 
+import java.io.File;
+
 public class ExtractionParameters {
 	
 	//DEEP parameters
@@ -11,11 +13,20 @@ public class ExtractionParameters {
 	public static final int IMG_WIDTH = 224;
 	public static final int IMG_HEIGHT = 224;
 	
+	//Image Source Folder
+	public static final File SRC_FOLDER = new File("data/lfw_funneled");
+	
+	//Features Storage File
+	public static final File STORAGE_FILE = new File("out/seqFeatures.dat");
+		
+	//Image Source Folder using face detection
+	public static final File SRC_FOLDER_FD = new File("data/lfw");
+		
+	//Features Storage File using face detection
+	public static final File STORAGE_FILE_FD = new File("out/seqFeatures_fd.dat");
+	
 	//non usati per adesso
 	/*
-	//Features Storage File
-	public static final File STORAGE_FILE = new File("out/deep.seq.dat");
-	
 	//k-Nearest Neighbors
 	public static final int K = 30;
 	
