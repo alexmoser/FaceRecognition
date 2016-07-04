@@ -10,7 +10,7 @@ public class FaceDetectionMain {
 	
 		FaceDetection faceDetection = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
 		
-		Mat img = faceDetection.getFace("data/lfw/Abdullah_Gul/Abdullah_Gul_0013.jpg");
+		Mat img = faceDetection.getFace("data/lfw/Alvaro_Uribe/Alvaro_Uribe_0026.jpg");
 		
 		CanvasFrame canvasFrame = Utility.getCanvas(img.cols(), img.rows());
 		canvasFrame.showImage(new OpenCVFrameConverter.ToMat().convert(img));
