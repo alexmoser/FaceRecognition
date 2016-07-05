@@ -25,14 +25,4 @@ public class ExtractionParameters {
 	//Features Storage File using face detection
 	public static final File STORAGE_FILE_FD = new File("out/seqFeatures_fd.dat");
 	
-	//non usati per adesso
-	/*
-	//k-Nearest Neighbors
-	public static final int K = 30;
-	
-	//HTML Output Parameters
-	public static final  String BASE_URI = "file:///" + Parameters.SRC_FOLDER.getAbsolutePath() + "/";
-	public static final File RESULTS_HTML = new File("out/deep.seq.html");
-	*/
-
 }

@@ -5,12 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacv.CanvasFrame;
-import org.bytedeco.javacv.OpenCVFrameConverter;
-
 import it.unipi.ing.mim.facedetection.DetectionParameters;
 import it.unipi.ing.mim.facedetection.FaceDetection;
-import it.unipi.ing.mim.facedetection.Utility;
 import it.unipi.ing.mim.featuresextraction.ExtractionParameters;
 import it.unipi.ing.mim.utilities.CsvFileWriter;
 
