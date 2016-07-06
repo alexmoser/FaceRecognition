@@ -11,6 +11,11 @@ import it.unipi.ing.mim.featuresextraction.ImgDescriptor;
 import it.unipi.ing.mim.featuresextraction.ExtractionParameters;
 import it.unipi.ing.mim.featuresextraction.FeaturesStorage;
 
+/**
+ * This class provides the methods used to evaluate the distance between two images.
+ * It works for both the cases in which the images feature have been stored, or still
+ * need to be extracted. 
+ * */
 public class DistanceEvaluator {
 
 	private DNNExtractor extractor;

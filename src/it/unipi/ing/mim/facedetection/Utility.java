@@ -19,6 +19,9 @@ import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 
+/**
+ * This class contains utility function used for the face detection.
+ * */
 public class Utility {
 	
 	private static OpenCVFrameConverter.ToMat frame2Mat = new OpenCVFrameConverter.ToMat();
@@ -72,7 +75,7 @@ public class Utility {
 	 * image, accordingly to the padding.
 	 * @param img is the source image from which the face needs to be taken
 	 * @param face is the Rect representing the face inside the image
-	 * @param padding is a number between 0 and 1 representing the percentage of padding w.r.t.
+	 * @param padding is a number representing the percentage of padding w.r.t.
 	 * the longest side of the face rectangle
 	 * */
 	public static Mat getImageROI(Mat img, Rect face, float padding) {
@@ -82,7 +85,12 @@ public class Utility {
 			// compute side dimension
 			int longest_side = (face.width() > face.height()) ? face.width() : face.height();
 			longest_side += longest_side*padding;
-			// [0] is up/left, [1] is down/right
+			/*
+			 * x_fill[0] : left 
+			 * x_fill[1] : right
+			 * y_fill[0] : top
+			 * y_fill[1] : bottom
+			 * */
 			int[] 	x_fill = {0, 0},
 					y_fill = {0, 0};
 			int width, height;

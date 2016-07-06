@@ -7,6 +7,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This class provides a static method that allows to output a List of ImgDescriptors
+ * to an Html file
+ * */
 public class Output {
 
 	public static final int COLUMNS = 5;

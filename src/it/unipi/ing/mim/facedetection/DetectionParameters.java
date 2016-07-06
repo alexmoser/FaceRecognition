@@ -2,6 +2,9 @@ package it.unipi.ing.mim.facedetection;
 
 import org.bytedeco.javacpp.opencv_core.Size;
 
+/**
+ * This class contains parameters specifically defined for the package classes
+ * */
 public class DetectionParameters {
 	
 	public static final Size FACE_MIN_SIZE = new Size(100, 100);

@@ -28,13 +28,12 @@ public class ImgDescriptor implements Serializable, Comparable<ImgDescriptor> {
 		return new Double(dist).compareTo(arg0.dist);
 	}
 	
-	//TODO
 	public double distance(ImgDescriptor desc) {
 		
 		double sum = 0;
 		double dist;
 		
-		//Evaluate the Euclidian distance between 2 ImgDescriptor
+		// Evaluate the Euclidean distance between 2 ImgDescriptor
 		float [] normalizedVector2 = desc.getFeatures();
 		for (int i = 0; i < this.normalizedVector.length; i++){
 			
@@ -46,12 +45,11 @@ public class ImgDescriptor implements Serializable, Comparable<ImgDescriptor> {
 		return dist;
 	}
 	
-	//TODO
 	private float[] getNormalizedVector(float[] vector, float norm2) {
 		
 		float[] normalizedVector = new float [vector.length];
 		
-		//Normalize the vector values by means of its norm 2
+		// Normalize the vector values by means of its norm 2
 		
 		for(int i = 0; i < vector.length; i++){
 			
@@ -60,8 +58,7 @@ public class ImgDescriptor implements Serializable, Comparable<ImgDescriptor> {
 		
 		return normalizedVector;
 	}
-	
-	//TODO
+
 	private float evaluateNorm2(float[] vector) {
 		
 		float norm2 = 0;

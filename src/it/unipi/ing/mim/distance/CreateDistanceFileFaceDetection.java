@@ -10,11 +10,15 @@ import it.unipi.ing.mim.facedetection.FaceDetection;
 import it.unipi.ing.mim.featuresextraction.ExtractionParameters;
 import it.unipi.ing.mim.utilities.CsvFileWriter;
 
+/**
+ * This class only contains a main that is intended to be launched once.
+ * The difference is that before evaluating the distance, the face needs to be detected.
+ * Function is anologous to CreateDistanceFile, see such class for further details.
+ * */
 public class CreateDistanceFileFaceDetection {
 
 	public static void main(String [] args) throws Exception {
 		
-		File img1, img2;
 		CsvFileWriter resultsFile = new CsvFileWriter("distance", DistanceParameters.DISTANCES_FILE_FD);
 	
 		FileReader source = new FileReader(DistanceParameters.TEST_FILE);
@@ -23,6 +27,8 @@ public class CreateDistanceFileFaceDetection {
 		DistanceEvaluator distanceEvaluator = new DistanceEvaluator(ExtractionParameters.STORAGE_FILE_FD);
 		
 		FaceDetection faceDetector = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
+
+		File img1, img2;
 		
 		int count = Integer.parseInt(b.readLine());
 	    double [] distances = new double[count*2];
@@ -41,6 +47,7 @@ public class CreateDistanceFileFaceDetection {
 	    		img2 = new File(DistanceParameters.SRC_FOLDER_FD + split[2] + "/" + split[2] + "_0" + ((Integer.parseInt(split[3]) < 10) ? "00" : (Integer.parseInt(split[3]) < 100) ? "0" : "") + split[3] + ".jpg");
 	    	} 
 			
+	    	// detect the face(s) from the images specified
 	    	Mat imgMat1 = faceDetector.getFaces(img1.getPath());
 	    	Mat imgMat2 = faceDetector.getFaces(img2.getPath());
 	    	
@@ -51,7 +58,6 @@ public class CreateDistanceFileFaceDetection {
 			if(i == count) 
 				resultsFile.addLine("non-equals-pairs");
 			
-			// print distances to a file 
 			resultsFile.addLine(Double.toString(distances[i]));
 	    }
 	

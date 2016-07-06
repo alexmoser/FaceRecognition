@@ -2,6 +2,9 @@ package it.unipi.ing.mim.distance;
 
 import java.io.File;
 
+/**
+ * This class contains parameters specifically defined for the package classes
+ * */
 public class DistanceParameters {
 	
 	//Test source file

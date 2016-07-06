@@ -4,6 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class defines a main function whose target is to create a file containing all the 
+ * extracted features of the images in the database.
+ * */
 public class CreateSeqFeaturesFile {
 
 	public static void main(String[] args) throws Exception {
@@ -20,25 +24,26 @@ public class CreateSeqFeaturesFile {
 		List<ImgDescriptor>  descs = new ArrayList<ImgDescriptor>();
 		DNNExtractor obj = new DNNExtractor ();
 		
-		//Scan the folder to get all the sub-directories
+		// scan the folder to get all the sub-directories
 		File [] dirList = imgFolder.listFiles();
 		
-		//Scan each directory
+		// scan each directory
 		for (int i = 0; i < dirList.length; i++){
 			if(!dirList[i].isDirectory())
 				continue;
-			//Get all the files in the directory
+			// get all the files in the directory
 			File [] fileList = dirList[i].listFiles();
 
-			//Extract the deep features for each file
-			//Put the features in an ImgDescriptor object and add it in the descs List
-			//Descriptor ID is the file name
+			// for each file
 			for (int j = 0; j < fileList.length; j++){
-				//skip the system files
+				// skip hidden files
 				if(fileList[j].isHidden())
 					continue;
+				// extract the deep features
 				float [] features = obj.extract(fileList[j], ExtractionParameters.DEEP_LAYER);
+				// put the features in an Imgdescriptor object (as ID use the file name)
 				ImgDescriptor temp = new ImgDescriptor(features, fileList[j].getName());
+				// add it to the descs list
 				descs.add(temp);
 				System.out.println("Feature " + (j) + ", " + temp.id);
 			}
