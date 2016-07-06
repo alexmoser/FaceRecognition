@@ -41,8 +41,8 @@ public class CreateDistanceFileFaceDetection {
 	    		img2 = new File(DistanceParameters.SRC_FOLDER_FD + split[2] + "/" + split[2] + "_0" + ((Integer.parseInt(split[3]) < 10) ? "00" : (Integer.parseInt(split[3]) < 100) ? "0" : "") + split[3] + ".jpg");
 	    	} 
 			
-	    	Mat imgMat1 = faceDetector.getFace(img1.getPath());
-	    	Mat imgMat2 = faceDetector.getFace(img2.getPath());
+	    	Mat imgMat1 = faceDetector.getFaces(img1.getPath());
+	    	Mat imgMat2 = faceDetector.getFaces(img2.getPath());
 	    	
 	    	distances[i] = distanceEvaluator.evaluateDistance(imgMat1, imgMat2, img1, img2);
 					

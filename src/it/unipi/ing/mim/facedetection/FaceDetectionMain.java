@@ -10,10 +10,11 @@ public class FaceDetectionMain {
 	
 		FaceDetection faceDetection = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
 		
-		Mat img = faceDetection.getFace("data/lfw/Chris_Byrd/Chris_Byrd_0002.jpg");
+		Mat [] img = faceDetection.getFaces("data/prova3.jpg", 0.5f);
 		
-		CanvasFrame canvasFrame = Utility.getCanvas(img.cols(), img.rows());
-		canvasFrame.showImage(new OpenCVFrameConverter.ToMat().convert(img));
-		
+		for(int i=0; i<img.length; i++) {
+			CanvasFrame canvasFrame = Utility.getCanvas(img[i].cols(), img[i].rows());
+			canvasFrame.showImage(new OpenCVFrameConverter.ToMat().convert(img[i]));
+		}
 	}
 }

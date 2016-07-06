@@ -67,12 +67,57 @@ public class Utility {
 		return grayImg;
 	}
 
-	public static Mat getImageROI(Mat img, Rect face) {
+	/**
+	 * Returns a squared Mat image containing the specified face, cropped from the specified
+	 * image, accordingly to the padding.
+	 * @param img is the source image from which the face needs to be taken
+	 * @param face is the Rect representing the face inside the image
+	 * @param padding is a number between 0 and 1 representing the percentage of padding w.r.t.
+	 * the longest side of the face rectangle
+	 * */
+	public static Mat getImageROI(Mat img, Rect face, float padding) {
 		Rect rect = null;
 		Mat roi = null;
 		try {
-			rect = new Rect(face.x(), face.y(), face.width(), face.height());
-			roi = new Mat(img, rect); 
+			// compute side dimension
+			int longest_side = (face.width() > face.height()) ? face.width() : face.height();
+			longest_side += longest_side*padding;
+			// [0] is up/left, [1] is down/right
+			int[] 	x_fill = {0, 0},
+					y_fill = {0, 0};
+			int width, height;
+			// redefine coordinates in order to keep face centered
+			// store filling pixels, if any
+			int x_coord = face.x() - ((longest_side-face.width())/2); 
+			if(x_coord + longest_side > img.cols()) {
+				x_fill[1] = (x_coord + longest_side) - img.cols();
+			}
+			if(x_coord < 0) {
+				x_fill[0] = -x_coord;
+				x_coord = 0;
+			}
+			int y_coord = face.y() - ((longest_side-face.height())/2);
+			if(y_coord + longest_side > img.rows()) {
+				y_fill[1] = (y_coord + longest_side) - img.rows();
+			}
+			if(y_coord < 0) {
+				y_fill[0] = -y_coord;
+				y_coord = 0;
+			}
+			
+			// compute effective rectangle dimensions (no filling)
+			width = longest_side - x_fill[0] - x_fill[1];
+			height = longest_side - y_fill[0] - y_fill[1];
+			
+			// define rectangle
+			rect = new Rect(x_coord, y_coord, width, height);
+			
+			// crop image (no filling)
+			roi = new Mat(img, rect);
+			
+			// add filling pixels
+			copyMakeBorder(roi, roi, y_fill[0], y_fill[1], x_fill[0], x_fill[1], 0);
+			
 		} catch (Exception e) {
 			System.err.println("x: " + face.x() + ", " +  face.y() + ", " + face.width() + ", " + face.height());
 		}

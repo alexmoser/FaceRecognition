@@ -36,7 +36,7 @@ public class SearchEngineFaceDetection {
 	    String imgPath = bufferRead.readLine();
 		
 	    File img = new File(imgPath);
-		Mat imgMat = faceDetector.getFace(imgPath);
+		Mat imgMat = faceDetector.getFaces(imgPath);
 		
 		float[] features = extractor.extract(imgMat, ExtractionParameters.DEEP_LAYER);
 		ImgDescriptor query = new ImgDescriptor(features, img.getName());

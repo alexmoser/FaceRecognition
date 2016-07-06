@@ -23,41 +23,38 @@ public class FaceDetection {
 	private RectVector detect(Mat img, Size minSize, Size maxSize) {
 		//detect faces
 		RectVector face = new RectVector();
-		face_cascade.detectMultiScale(img, face, 1.2, 3, CV_HAAR_DO_CANNY_PRUNING, minSize, maxSize);
+		face_cascade.detectMultiScale(img, face, 1.2, 4, CV_HAAR_DO_CANNY_PRUNING, minSize, maxSize);
 		return face;
 	}
 	
 	/**
-	 * Detects and crops the face from the specified image.
+	 * Detects and crops the faces from the specified image.
+	 * The crop is done in such a way that each resulting image is squared, according to 
+	 * the longest side of the detected rectangle, increased of a certain specified percentage
 	 * @param imgPath is the path of the image
-	 * @return a Mat representing the detected and cropped face
+	 * @param padding is the padding (in percentage) to add to the detected rectangle [0, 1]
+	 * @return an array of Mat representing the detected and cropped faces
 	 * */
-	public Mat getFace(String imgPath) {
+	public Mat[] getFaces(String imgPath, float padding) {
 		Mat img = null;
+		Mat[] ret = null;
 		try {
 			File image = new File(imgPath);
 			img = imread(image.getAbsolutePath(), CV_LOAD_IMAGE_COLOR);
 
 			// Face
 			RectVector faces = detect(img, DetectionParameters.FACE_MIN_SIZE, DetectionParameters.FACE_MAX_SIZE);
-			
-			//TODO chiedere come gestire la detection di più facce
-			if(faces.size() > 1){
-				System.err.println("More than one face detected, only one selected!");
-			}
-			
-			img = Utility.getImageROI(img, faces.get(0));
-			
-			/*//debug 
+			ret = new Mat[(int)faces.size()];
+			System.out.println("detected faces: " + faces.size());
 			for(int i = 0; i < faces.size(); i++){
-				Utility.highlight(img, faces.get(i));
+				//Utility.highlight(img, faces.get(i));
+				ret[i] = Utility.getImageROI(img, faces.get(i), padding);
 			}
-			*/
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return img;
+		return ret;
 	}
 }

@@ -44,7 +44,7 @@ public class CreateSeqFeaturesFileFaceDetection {
 					continue;
 				//Face Detection
 				FaceDetection faceDetector = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
-				Mat img = faceDetector.getFace(fileList[j].getAbsolutePath());
+				Mat img = faceDetector.getFaces(fileList[j].getAbsolutePath());
 				float [] features = obj.extract(img, ExtractionParameters.DEEP_LAYER);
 				ImgDescriptor temp = new ImgDescriptor(features, fileList[j].getName());
 				descs.add(temp);

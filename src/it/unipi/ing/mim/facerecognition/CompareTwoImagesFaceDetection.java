@@ -43,8 +43,8 @@ public class CompareTwoImagesFaceDetection {
 		File img1 = new File(imgPath1);
 		File img2 = new File(imgPath2);
 		
-		Mat imgMat1 = faceDetector.getFace(img1.getPath());
-    	Mat imgMat2 = faceDetector.getFace(img2.getPath());
+		Mat imgMat1 = faceDetector.getFaces(img1.getPath());
+    	Mat imgMat2 = faceDetector.getFaces(img2.getPath());
     	
 		if(distanceEvaluator.evaluateDistance(imgMat1, imgMat2, img1, img2) <= RecognitionParameters.THRESHOLD_FD)
 			System.out.println("SAME");
