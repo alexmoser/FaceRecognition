@@ -21,9 +21,16 @@ public class DistanceEvaluator {
 	private DNNExtractor extractor;
 	private List<ImgDescriptor> descriptors;
 	
-	public DistanceEvaluator(File storageFile) throws ClassNotFoundException, IOException {
+	public DistanceEvaluator(File storageFile) throws ClassNotFoundException {
 		extractor = new DNNExtractor();
-		descriptors = FeaturesStorage.load(storageFile);
+		// handle exception if file not found
+		try {
+			descriptors = FeaturesStorage.load(storageFile);
+		}
+		catch(IOException e) {
+			descriptors = null;
+			System.out.println("No features file detected, distance evaluation will first need to extract features.");
+		}
 	}
 	
 	/**
@@ -37,10 +44,13 @@ public class DistanceEvaluator {
 	public float evaluateDistance(File img1, File img2) {
 		ImgDescriptor imgDescriptor1;
 		ImgDescriptor imgDescriptor2;
+		int index1 = -1,
+			index2 = -1;
 		// check if images are in our DB
 		// since indexOf(o) uses the equals method of the parameter object, we need to define
 		// a ghost descriptor in order to make it work correctly
-		int index1 = descriptors.indexOf(new ImgDescriptor(new float[] {0.0f}, img1.getName()));
+		if(descriptors != null)
+			index1 = descriptors.indexOf(new ImgDescriptor(new float[] {0.0f}, img1.getName()));
 		if(index1 == -1) {
 			//img1 is not in the DB
 			System.out.println("img1 no in DB: " + img1.getName());
@@ -53,7 +63,8 @@ public class DistanceEvaluator {
 		}
 		// since indexOf(o) uses the equals method of the parameter object, we need to define
 		// a ghost descriptor in order to make it work correctly
-		int index2 = descriptors.indexOf(new ImgDescriptor(new float[] {0.0f}, img2.getName()));
+		if(descriptors != null) 
+			index2 = descriptors.indexOf(new ImgDescriptor(new float[] {0.0f}, img2.getName()));
 		if (index2 == -1) {
 			//img2 is not in the DB
 			System.out.println("img2 no in DB: " + img2.getName());
@@ -81,10 +92,13 @@ public class DistanceEvaluator {
 	public float evaluateDistance(Mat imgMat1, Mat imgMat2, File img1, File img2) {
 		ImgDescriptor imgDescriptor1;
 		ImgDescriptor imgDescriptor2;
+		int index1 = -1,
+			index2 = -1;
 		// check if images are in our DB
 		// since indexOf(o) uses the equals method of the parameter object, we need to define
 		// a ghost descriptor in order to make it work correctly
-		int index1 = descriptors.indexOf(new ImgDescriptor(new float[] {0.0f}, img1.getName()));
+		if(descriptors != null)
+			index1 = descriptors.indexOf(new ImgDescriptor(new float[] {0.0f}, img1.getName()));
 		if(index1 == -1) {
 			//img1 is not in the DB
 			System.out.println("img1 no in DB: " + img1.getName());
@@ -97,7 +111,8 @@ public class DistanceEvaluator {
 		}
 		// since indexOf(o) uses the equals method of the parameter object, we need to define
 		// a ghost descriptor in order to make it work correctly
-		int index2 = descriptors.indexOf(new ImgDescriptor(new float[] {0.0f}, img2.getName()));
+		if(descriptors != null)
+			index2 = descriptors.indexOf(new ImgDescriptor(new float[] {0.0f}, img2.getName()));
 		if (index2 == -1) {
 			//img2 is not in the DB
 			System.out.println("img2 no in DB: " + img2.getName());
