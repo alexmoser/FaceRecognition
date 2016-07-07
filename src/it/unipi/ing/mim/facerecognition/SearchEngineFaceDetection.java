@@ -28,17 +28,26 @@ public class SearchEngineFaceDetection {
 		FaceDetection faceDetector = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
 		DNNExtractor extractor = new DNNExtractor();
 		
-		searcher.open(ExtractionParameters.STORAGE_FILE_FD);
-		
+		//in this case for computational reason the database must exist
+		try{
+			searcher.open(ExtractionParameters.STORAGE_FILE);
+		}
+		catch(IOException e){
+			System.err.println("Features database doesn't exist yet, please launch CreateSeqFeaturesFile");
+			return;
+		}
 		//Image Query File
 		System.out.print("Enter image path : ");
 		BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
 	    String imgPath = bufferRead.readLine();
 		
 	    File img = new File(imgPath);
-		Mat imgMat = faceDetector.getFaces(imgPath);
+		Mat [] imgMat = faceDetector.getFaces(imgPath, DetectionParameters.PADDING);
 		
-		float[] features = extractor.extract(imgMat, ExtractionParameters.DEEP_LAYER);
+		System.out.println("Insert the number of the face you want to search [0," + (imgMat.length - 1) + "]");
+		int choice = Integer.parseInt(bufferRead.readLine());
+		
+		float[] features = extractor.extract(imgMat[choice], ExtractionParameters.DEEP_LAYER);
 		ImgDescriptor query = new ImgDescriptor(features, img.getName());
 				
 		List<ImgDescriptor> res = searcher.search(query, RecognitionParameters.K);

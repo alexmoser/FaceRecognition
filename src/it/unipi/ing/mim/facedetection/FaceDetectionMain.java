@@ -13,10 +13,11 @@ public class FaceDetectionMain {
 	
 		FaceDetection faceDetection = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
 		
-		Mat [] img = faceDetection.getFaces("data/prova3.jpg", 1f);
+		Mat [] img = faceDetection.getFaces("data/friends1.jpg", 0.6f);
 		
 		for(int i=0; i<img.length; i++) {
 			CanvasFrame canvasFrame = Utility.getCanvas(img[i].cols(), img[i].rows());
+			canvasFrame.setTitle("face_" + i);
 			canvasFrame.showImage(new OpenCVFrameConverter.ToMat().convert(img[i]));
 		}
 	}

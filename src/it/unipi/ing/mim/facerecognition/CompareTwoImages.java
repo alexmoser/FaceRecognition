@@ -16,13 +16,7 @@ public class CompareTwoImages {
 				imgPath2 = null;
 		DistanceEvaluator distanceEvaluator = null;
 		
-		try {
-			distanceEvaluator = new DistanceEvaluator(ExtractionParameters.STORAGE_FILE);
-		}
-		catch(IOException e){
-			System.err.println("Features file not found, please launch CreateSeqFeaturesFile first!");
-			return;
-		}
+		distanceEvaluator = new DistanceEvaluator(ExtractionParameters.STORAGE_FILE);
 		
 		System.out.println("Enter images paths : ");   
 		try{

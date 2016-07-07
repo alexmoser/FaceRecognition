@@ -1,2 +1,12 @@
 /bin/
 out/results.csv
+
+out/write.lock
+
+out/deep.seq.html
+
+out/distances_fd.csv
+
+out/distances.csv
+/data/
+/out/

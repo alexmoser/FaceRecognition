@@ -53,9 +53,9 @@ public class DistanceEvaluator {
 			index1 = descriptors.indexOf(new ImgDescriptor(new float[] {0.0f}, img1.getName()));
 		if(index1 == -1) {
 			//img1 is not in the DB
-			System.out.println("img1 no in DB: " + img1.getName());
 			float[] imgFeatures1 = extractor.extract(img1, ExtractionParameters.DEEP_LAYER);
 			imgDescriptor1 = new ImgDescriptor(imgFeatures1, img1.getName());
+			System.out.println("img1 no in DB: " + img1.getName());
 		}
 		else {
 			System.out.println("img1 in DB: " + img1.getName());
@@ -67,9 +67,9 @@ public class DistanceEvaluator {
 			index2 = descriptors.indexOf(new ImgDescriptor(new float[] {0.0f}, img2.getName()));
 		if (index2 == -1) {
 			//img2 is not in the DB
-			System.out.println("img2 no in DB: " + img2.getName());
 			float[] imgFeatures2 = extractor.extract(img2, ExtractionParameters.DEEP_LAYER);
 			imgDescriptor2 = new ImgDescriptor(imgFeatures2, img2.getName());
+			System.out.println("img2 no in DB: " + img2.getName());
 		}
 		else {
 			System.out.println("img2 in DB: " + img2.getName());
@@ -101,9 +101,9 @@ public class DistanceEvaluator {
 			index1 = descriptors.indexOf(new ImgDescriptor(new float[] {0.0f}, img1.getName()));
 		if(index1 == -1) {
 			//img1 is not in the DB
-			System.out.println("img1 no in DB: " + img1.getName());
 			float[] imgFeatures1 = extractor.extract(imgMat1, ExtractionParameters.DEEP_LAYER);
 			imgDescriptor1 = new ImgDescriptor(imgFeatures1, img1.getName());
+			System.out.println("img1 no in DB: " + img1.getName());
 		}
 		else {
 			System.out.println("img1 in DB: " + img1.getName());
@@ -115,9 +115,9 @@ public class DistanceEvaluator {
 			index2 = descriptors.indexOf(new ImgDescriptor(new float[] {0.0f}, img2.getName()));
 		if (index2 == -1) {
 			//img2 is not in the DB
-			System.out.println("img2 no in DB: " + img2.getName());
 			float[] imgFeatures2 = extractor.extract(imgMat2, ExtractionParameters.DEEP_LAYER);
 			imgDescriptor2 = new ImgDescriptor(imgFeatures2, img2.getName());
+			System.out.println("img2 no in DB: " + img2.getName());
 		}
 		else {
 			System.out.println("img2 in DB: " + img2.getName());

@@ -23,8 +23,15 @@ public class SearchEngine {
 		SearchEngine searcher = new SearchEngine();
 		DNNExtractor extractor = new DNNExtractor();
 		
-		searcher.open(ExtractionParameters.STORAGE_FILE);
-		
+		//in this case for computational reason the database must exist
+		try{
+			searcher.open(ExtractionParameters.STORAGE_FILE);
+		}
+		catch(IOException e){
+			System.err.println("Features database doesn't exist yet, please launch CreateSeqFeaturesFile");
+			return;
+		}
+
 		//Image Query File
 		System.out.print("Enter image path : ");
 		BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));

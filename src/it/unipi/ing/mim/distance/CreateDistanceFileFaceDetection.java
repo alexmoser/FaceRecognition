@@ -48,10 +48,11 @@ public class CreateDistanceFileFaceDetection {
 	    	} 
 			
 	    	// detect the face(s) from the images specified
-	    	Mat imgMat1 = faceDetector.getFaces(img1.getPath());
-	    	Mat imgMat2 = faceDetector.getFaces(img2.getPath());
+	    	Mat [] imgMat1 = faceDetector.getFaces(img1.getPath(), DetectionParameters.PADDING);
+	    	Mat [] imgMat2 = faceDetector.getFaces(img2.getPath(), DetectionParameters.PADDING);
 	    	
-	    	distances[i] = distanceEvaluator.evaluateDistance(imgMat1, imgMat2, img1, img2);
+	    	// for this purpose we only need the first detected face
+	    	distances[i] = distanceEvaluator.evaluateDistance(imgMat1[0], imgMat2[0], img1, img2);
 					
 			if(i == 0) 
 				resultsFile.addLine("equals-pairs");
