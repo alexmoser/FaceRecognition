@@ -13,9 +13,12 @@ public class FaceDetectionMain {
 	
 		FaceDetection faceDetection = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
 		
-		Mat [] img = faceDetection.getFaces("data/friends1.jpg", 0.6f);
+		Mat [] img = faceDetection.getFaces("data/lfw/Chok_Tong_Goh/Chok_Tong_Goh_0001.jpg", 0.6f);
 		
-		for(int i=0; i<img.length; i++) {
+		if(img.length == 0)
+			System.out.println("Face not found");
+		
+		for(int i = 0; i < img.length; i++) {
 			CanvasFrame canvasFrame = Utility.getCanvas(img[i].cols(), img[i].rows());
 			canvasFrame.setTitle("face_" + i);
 			canvasFrame.showImage(new OpenCVFrameConverter.ToMat().convert(img[i]));

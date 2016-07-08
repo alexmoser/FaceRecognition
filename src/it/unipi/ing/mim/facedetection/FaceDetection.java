@@ -22,11 +22,28 @@ public class FaceDetection {
 		//init detector
 		face_cascade = new CascadeClassifier(haarcascadePath);
 	}
-
+	
+	/**
+	 * Detect the faces from the specified image and put them in a RectVector.
+	 * This function calls the detectMultiScale method, dynamically adjusting the scaling factor parameters
+	 * when it doesn't detect any faces.
+	 * @param img is the image
+	 * @param minSize is the minimum desired size of the rectangle
+	 * @param maxSize is the maximum desired size of the rectangle
+	 * @return a RectVector containing the detected faces
+	 * */
 	private RectVector detect(Mat img, Size minSize, Size maxSize) {
 		//detect faces
 		RectVector face = new RectVector();
-		face_cascade.detectMultiScale(img, face, 1.2, 4, CV_HAAR_DO_CANNY_PRUNING, minSize, maxSize);
+		double sf = 1.2;
+		do{
+			face_cascade.detectMultiScale(img, face, sf, 4, CV_HAAR_DO_CANNY_PRUNING, minSize, maxSize);
+			sf -= 0.05;
+			if(sf <= 1)
+				break;
+			// if no faces have been detected, reduce scaling factor and keep trying
+		}while(face.size() == 0);
+		
 		return face;
 	}
 	

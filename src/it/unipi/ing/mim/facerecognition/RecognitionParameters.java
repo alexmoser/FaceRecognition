@@ -18,6 +18,8 @@ public class RecognitionParameters {
 	public static final File SRC_FOLDER = new File("data/lfw_funneled");
 	public static final File SRC_FOLDER_FD = new File("data/lfw");
 	
+	public static final File TMP_FOLDER = new File("out/tmp");
+	
 	//HTML Output Parameters
 	public static final String BASE_URI = "file:///" + SRC_FOLDER.getAbsolutePath() + "/";
 	public static final File RESULTS_HTML = new File("out/seq.html");
