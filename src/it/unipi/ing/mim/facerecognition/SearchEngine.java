@@ -43,7 +43,7 @@ public class SearchEngine {
 				
 		List<ImgDescriptor> res = searcher.search(query, RecognitionParameters.K);
 		
-		Output.toHTML(res, RecognitionParameters.BASE_URI, RecognitionParameters.RESULTS_HTML);
+		Output.toHTML(res, RecognitionParameters.BASE_URI, RecognitionParameters.SEARCH_ENGINE_HTML);
 	}
 		
 	public void open(File storageFile) throws ClassNotFoundException, IOException {

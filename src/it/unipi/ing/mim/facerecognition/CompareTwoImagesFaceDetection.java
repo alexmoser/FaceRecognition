@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.javacv.CanvasFrame;
+import org.bytedeco.javacv.OpenCVFrameConverter;
+
 import it.unipi.ing.mim.facedetection.DetectionParameters;
 import it.unipi.ing.mim.facedetection.FaceDetection;
 import it.unipi.ing.mim.facedetection.Utility;
@@ -54,23 +57,23 @@ public class CompareTwoImagesFaceDetection {
     	List<ImgDescriptor> descImg2 = new ArrayList<ImgDescriptor>();
   
     	for(int i = 0; i < imgMat1.length; i++){
+    		// define a copy of the image in order to prevent extract method to modify the original properties
+    		Mat tmpImg = new Mat(imgMat1[i]);
     		String id = i + "_" + img1.getName();
-    		float[] features = extractor.extract(imgMat1[i], ExtractionParameters.DEEP_LAYER);
+    		float[] features = extractor.extract(tmpImg, ExtractionParameters.DEEP_LAYER);
     		ImgDescriptor tmp = new ImgDescriptor(features, id);
     		descImg1.add(tmp);
     		System.out.println("Extracting features for " + id);
-    		// Create temporary file with the face
-    		//Utility.face2File(imgMat1[i], new File(RecognitionParameters.TMP_FOLDER + "/" + id));
     	}
     	for(int i = 0; i < imgMat2.length; i++){
+    		// define a copy of the image in order to prevent extract method to modify the original properties
+    		Mat tmpImg = new Mat(imgMat2[i]);
     		String id = i + "_" + img2.getName();
-    		float[] features = extractor.extract(imgMat2[i], ExtractionParameters.DEEP_LAYER);
+    		float[] features = extractor.extract(tmpImg, ExtractionParameters.DEEP_LAYER);
     		ImgDescriptor tmp = new ImgDescriptor(features, id);
     		descImg2.add(tmp);
     		System.out.println("Extracting features for " + id);
-    		// Create temporary file with the face
-    		//Utility.face2File(imgMat2[i], new File(RecognitionParameters.TMP_FOLDER + "/"+ id));
-		}
+    	}
 
     	int i = 0;
     	int j = 0;
@@ -79,9 +82,8 @@ public class CompareTwoImagesFaceDetection {
     			if(desc1.distance(desc2) <= RecognitionParameters.THRESHOLD_FD) {
     				System.out.println(desc1.id + " matches with " + desc2.id);
     				counter++;
-    				// TODO creare file immagini con le facce dei match (e.g. una cartella per ogni coppia)
-    				Utility.face2File(imgMat1[i], new File(RecognitionParameters.TMP_FOLDER + "/" + "match_"+counter+"_img1_"+i+".jpg"));
-    				Utility.face2File(imgMat2[j], new File(RecognitionParameters.TMP_FOLDER + "/" + "match_"+counter+"_img2_"+j+".jpg"));
+    				Utility.face2File(imgMat1[i], new File(RecognitionParameters.TMP_FOLDER_FD + "/" + "match_" + counter + "_img1_" + i + ".jpg"));
+    				Utility.face2File(imgMat2[j], new File(RecognitionParameters.TMP_FOLDER_FD + "/" + "match_" + counter + "_img2_" + j + ".jpg"));
     			}
     			j++;
     		}
@@ -89,11 +91,7 @@ public class CompareTwoImagesFaceDetection {
     		i++;
     	}
     	
-    	// Create temporary files to print to HTML file
-    	// TODO rifare una outToHtml che stampi tutte le immagini in tmp
-    	//il parametro counter serve a fargli stampare solo quelli nuovi, perché le immagini non vengono cancellate ma sovrascritte
-    	
-		Output.printTmpToHTML(new File("out/tmp.html"), counter);
+		Output.printTmpToHTML(RecognitionParameters.COMPARE_TWO_IMAGES_HTML_FD, counter);
     	
 		return counter;
 	}

@@ -1,8 +1,12 @@
 package it.unipi.ing.mim.facedetection;
 
+import java.io.File;
+
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
+
+import it.unipi.ing.mim.facerecognition.RecognitionParameters;
 
 /**
  * This class provides a single main function whose function is to test the FaceDetection class
@@ -13,7 +17,7 @@ public class FaceDetectionMain {
 	
 		FaceDetection faceDetection = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
 		
-		Mat [] img = faceDetection.getFaces("data/lfw/Chok_Tong_Goh/Chok_Tong_Goh_0001.jpg", 0.6f);
+		Mat [] img = faceDetection.getFaces("data/prova3.jpg", 0.6f);
 		
 		if(img.length == 0)
 			System.out.println("Face not found");
@@ -22,6 +26,8 @@ public class FaceDetectionMain {
 			CanvasFrame canvasFrame = Utility.getCanvas(img[i].cols(), img[i].rows());
 			canvasFrame.setTitle("face_" + i);
 			canvasFrame.showImage(new OpenCVFrameConverter.ToMat().convert(img[i]));
+			Utility.face2File(img[i], new File(RecognitionParameters.TMP_FOLDER_FD + "/" + "match_"+i + "_img1_" + i +".jpg"));
+			
 		}
 	}
 }

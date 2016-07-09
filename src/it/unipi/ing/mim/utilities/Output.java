@@ -1,5 +1,6 @@
 package it.unipi.ing.mim.utilities;
 
+import it.unipi.ing.mim.facerecognition.RecognitionParameters;
 import it.unipi.ing.mim.featuresextraction.ImgDescriptor;
 
 import java.io.File;
@@ -38,7 +39,7 @@ public class Output {
 		
 		try {
 	        string2File(html, outputFile);
-			System.out.print("html generated");
+			System.out.println("html generated");
         } catch (IOException e) {
 	        // TODO Auto-generated catch block
 	        e.printStackTrace();
@@ -56,30 +57,36 @@ public class Output {
 		}
 	}
 	
+	/**
+	 * This method is specific for the generation of the file .html representing the output
+	 * of the CompareTwoImages functionality. 
+	 * It prints to an html file all the images contained in the "tmp" folder.
+	 * The images are printed as pairs of matching faces, according to the matches parameter.
+	 * @param outputFile is the file to be created
+	 * @param matches is the number of matches   
+	 * */
 	public static void printTmpToHTML(File outputFile, int matches){
 		String html = "<html>\n<body>\n";
-		File tempFile = new File("out/tmp");
-		String BASE_URI = "file:///" + tempFile.getAbsolutePath() + "/";
-		
-		File [] imgList = tempFile.listFiles();
+		File [] imgList = RecognitionParameters.TMP_FOLDER_FD.listFiles();
 		
 		int i = 1;
 		for (File image : imgList){
-			html += "<img src=\"" +BASE_URI+image.getName()+"\" style=\"width:300px;height:300px;\">";
-			if (i%2==0)
+			// skip hidden files
+			if(image.isHidden())
+				continue;
+			html += "<img src=\"" + RecognitionParameters.BASE_URI_TMP_FD + image.getName() + "\" style=\"width:300px;height:300px;\">";
+			if (i%2 == 0)
 				html += "<br>";
-			if (i==matches*2)
+			if (i == matches*2)
 				break;
-			i++;
-			
+			i++;			
 		}
-		
 
 		html += "</body>\n</html>";
 		
 		try {
 	        string2File(html, outputFile);
-			System.out.print("html generated");
+			System.out.println("html generated");
         } catch (IOException e) {
 	        // TODO Auto-generated catch block
 	        e.printStackTrace();

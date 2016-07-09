@@ -52,7 +52,7 @@ public class SearchEngineFaceDetection {
 				
 		List<ImgDescriptor> res = searcher.search(query, RecognitionParameters.K);
 		
-		Output.toHTML(res, RecognitionParameters.BASE_URI_FD, RecognitionParameters.RESULTS_HTML_FD);
+		Output.toHTML(res, RecognitionParameters.BASE_URI_FD, RecognitionParameters.SEARCH_ENGINE_HTML_FD);
 	}
 		
 	public void open(File storageFile) throws ClassNotFoundException, IOException {
