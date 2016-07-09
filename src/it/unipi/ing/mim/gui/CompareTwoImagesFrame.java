@@ -228,8 +228,10 @@ public class CompareTwoImagesFrame {
 					faces = CompareTwoImagesFaceDetection.compare(txtPath1.getText(), txtPath2.getText());
 					if(faces > 0)
 						lblResult.setText("There are " + faces + " people that appear in both images");
-					else
+					else {
 						lblResult.setText("There are not people that appear in both images");
+						btnShowMatches.setVisible(false);
+					}
 				}
 				else { 
 					res = CompareTwoImages.compare(txtPath1.getText(), txtPath2.getText());

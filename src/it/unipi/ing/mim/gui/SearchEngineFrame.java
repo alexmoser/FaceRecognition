@@ -128,7 +128,7 @@ public class SearchEngineFrame {
 		lblImg.setVisible(false);
 		frame.getContentPane().add(lblImg);
 		
-		lblSelect = new JLabel("Select one face");
+		lblSelect = new JLabel("");
 		lblSelect.setBounds(6, 230, 438, 16);
 		lblSelect.setHorizontalAlignment(JLabel.CENTER);
 		lblSelect.setHorizontalTextPosition(JLabel.CENTER);
@@ -180,6 +180,7 @@ public class SearchEngineFrame {
 				if(chckbxFaceDetection.isSelected()){
 					FaceDetection faceDetector = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
 					final Mat[] imgMat = faceDetector.getFaces(txtPath.getText(), DetectionParameters.PADDING);
+					lblSelect.setText(imgMat.length + " faces have been detected, please select one face");
 					int x_offset = 40 + WIDTH,
 						y_offset = 17;
 					for(int i = 0; i < imgMat.length; i++){
@@ -223,7 +224,6 @@ public class SearchEngineFrame {
 				}
 				else{
 					try{
-						lblImg.setHorizontalAlignment(SwingConstants.CENTER);
 						SearchEngine.searchEngine(txtPath.getText(), (int)spinner.getValue());
 						Desktop.getDesktop().browse(RecognitionParameters.SEARCH_ENGINE_HTML.toURI());
 					}
