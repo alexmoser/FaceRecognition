@@ -55,4 +55,34 @@ public class Output {
 				fileWriter.close();
 		}
 	}
+	
+	public static void printTmpToHTML(File outputFile, int matches){
+		String html = "<html>\n<body>\n";
+		File tempFile = new File("out/tmp");
+		String BASE_URI = "file:///" + tempFile.getAbsolutePath() + "/";
+		
+		File [] imgList = tempFile.listFiles();
+		
+		int i = 1;
+		for (File image : imgList){
+			html += "<img src=\"" +BASE_URI+image.getName()+"\" style=\"width:300px;height:300px;\">";
+			if (i%2==0)
+				html += "<br>";
+			if (i==matches*2)
+				break;
+			i++;
+			
+		}
+		
+
+		html += "</body>\n</html>";
+		
+		try {
+	        string2File(html, outputFile);
+			System.out.print("html generated");
+        } catch (IOException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+        }
+	}
 }

@@ -1,5 +1,6 @@
 package it.unipi.ing.mim.facerecognition;
 
+import it.unipi.ing.mim.utilities.Output;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -59,7 +60,7 @@ public class CompareTwoImagesFaceDetection {
     		descImg1.add(tmp);
     		System.out.println("Extracting features for " + id);
     		// Create temporary file with the face
-    		Utility.face2File(imgMat1[i], new File(RecognitionParameters.TMP_FOLDER + id));
+    		//Utility.face2File(imgMat1[i], new File(RecognitionParameters.TMP_FOLDER + "/" + id));
     	}
     	for(int i = 0; i < imgMat2.length; i++){
     		String id = i + "_" + img2.getName();
@@ -68,21 +69,32 @@ public class CompareTwoImagesFaceDetection {
     		descImg2.add(tmp);
     		System.out.println("Extracting features for " + id);
     		// Create temporary file with the face
-    		Utility.face2File(imgMat2[i], new File(RecognitionParameters.TMP_FOLDER + id));
+    		//Utility.face2File(imgMat2[i], new File(RecognitionParameters.TMP_FOLDER + "/"+ id));
 		}
+
+    	int i = 0;
+    	int j = 0;
     	for(ImgDescriptor desc1 : descImg1) {
     		for(ImgDescriptor desc2 : descImg2) {
     			if(desc1.distance(desc2) <= RecognitionParameters.THRESHOLD_FD) {
     				System.out.println(desc1.id + " matches with " + desc2.id);
     				counter++;
     				// TODO creare file immagini con le facce dei match (e.g. una cartella per ogni coppia)
+    				Utility.face2File(imgMat1[i], new File(RecognitionParameters.TMP_FOLDER + "/" + "match_"+counter+"_img1_"+i+".jpg"));
+    				Utility.face2File(imgMat2[j], new File(RecognitionParameters.TMP_FOLDER + "/" + "match_"+counter+"_img2_"+j+".jpg"));
     			}
+    			j++;
     		}
+    		j = 0;
+    		i++;
     	}
     	
     	// Create temporary files to print to HTML file
     	// TODO rifare una outToHtml che stampi tutte le immagini in tmp
-		
+    	//il parametro counter serve a fargli stampare solo quelli nuovi, perché le immagini non vengono cancellate ma sovrascritte
+    	
+		Output.printTmpToHTML(new File("out/tmp.html"), counter);
+    	
 		return counter;
 	}
 }
