@@ -23,9 +23,21 @@ public class SearchEngineFaceDetection {
 	private List<ImgDescriptor> descriptors;
 	
 	public static void main(String[] args) throws Exception {
+		//Image Query File
+		System.out.print("Enter image path : ");
+		BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+	    String imgPath = bufferRead.readLine();
+
+		FaceDetection faceDetector = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
+		
+		Mat[] imgMat = faceDetector.getFaces(imgPath, DetectionParameters.PADDING);
+	 
+		searchEngine(imgPath, 10, imgMat[1]);
+	}
+	
+	public static void searchEngine(String imgPath, int K, Mat imgMat) throws ClassNotFoundException {
 
 		SearchEngine searcher = new SearchEngine();
-		FaceDetection faceDetector = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
 		DNNExtractor extractor = new DNNExtractor();
 		
 		//in this case for computational reason the database must exist
@@ -36,23 +48,15 @@ public class SearchEngineFaceDetection {
 			System.err.println("Features database doesn't exist yet, please launch CreateSeqFeaturesFile");
 			return;
 		}
-		//Image Query File
-		System.out.print("Enter image path : ");
-		BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-	    String imgPath = bufferRead.readLine();
-		
+			   
 	    File img = new File(imgPath);
-		Mat [] imgMat = faceDetector.getFaces(imgPath, DetectionParameters.PADDING);
-		
-		System.out.println("Insert the number of the face you want to search [0," + (imgMat.length - 1) + "]");
-		int choice = Integer.parseInt(bufferRead.readLine());
-		
-		float[] features = extractor.extract(imgMat[choice], ExtractionParameters.DEEP_LAYER);
+	    
+		float[] features = extractor.extract(imgMat, ExtractionParameters.DEEP_LAYER);
 		ImgDescriptor query = new ImgDescriptor(features, img.getName());
 				
-		List<ImgDescriptor> res = searcher.search(query, RecognitionParameters.K);
+		List<ImgDescriptor> res = searcher.search(query, K);
 		
-		Output.toHTML(res, RecognitionParameters.BASE_URI_FD, RecognitionParameters.SEARCH_ENGINE_HTML_FD);
+		Output.toHTML(res, RecognitionParameters.BASE_URI_SEARCH_ENGINE_FD, RecognitionParameters.SEARCH_ENGINE_HTML_FD);
 	}
 		
 	public void open(File storageFile) throws ClassNotFoundException, IOException {

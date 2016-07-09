@@ -20,12 +20,12 @@ public class ExtractionParameters {
 	public static final File SRC_FOLDER = new File("data/lfw_funneled");
 	
 	//Features Storage File
-	public static final File STORAGE_FILE = new File("out/seqFeatures.dat");
+	public static final File STORAGE_FILE = new File("data/seqFeatures.dat");
 		
 	//Image Source Folder using face detection
 	public static final File SRC_FOLDER_FD = new File("data/lfw");
 		
 	//Features Storage File using face detection
-	public static final File STORAGE_FILE_FD = new File("out/seqFeatures_fd.dat");
+	public static final File STORAGE_FILE_FD = new File("data/seqFeatures_fd.dat");
 	
 }

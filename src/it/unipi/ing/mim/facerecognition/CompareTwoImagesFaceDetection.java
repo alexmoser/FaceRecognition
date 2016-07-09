@@ -75,6 +75,10 @@ public class CompareTwoImagesFaceDetection {
     		System.out.println("Extracting features for " + id);
     	}
 
+    	// Create "tmp" folder if it does not exist
+		if(!RecognitionParameters.TMP_COMPARE_FOLDER.exists())
+			RecognitionParameters.TMP_COMPARE_FOLDER.mkdir();
+		
     	int i = 0;
     	int j = 0;
     	for(ImgDescriptor desc1 : descImg1) {
@@ -82,8 +86,8 @@ public class CompareTwoImagesFaceDetection {
     			if(desc1.distance(desc2) <= RecognitionParameters.THRESHOLD_FD) {
     				System.out.println(desc1.id + " matches with " + desc2.id);
     				counter++;
-    				Utility.face2File(imgMat1[i], new File(RecognitionParameters.TMP_FOLDER_FD + "/" + "match_" + counter + "_img1_" + i + ".jpg"));
-    				Utility.face2File(imgMat2[j], new File(RecognitionParameters.TMP_FOLDER_FD + "/" + "match_" + counter + "_img2_" + j + ".jpg"));
+    				Utility.face2File(imgMat1[i], new File(RecognitionParameters.TMP_COMPARE_FOLDER + "/" + "match_" + counter + "_img1_" + i + ".jpg"));
+    				Utility.face2File(imgMat2[j], new File(RecognitionParameters.TMP_COMPARE_FOLDER + "/" + "match_" + counter + "_img2_" + j + ".jpg"));
     			}
     			j++;
     		}
@@ -91,7 +95,7 @@ public class CompareTwoImagesFaceDetection {
     		i++;
     	}
     	
-		Output.printTmpToHTML(RecognitionParameters.COMPARE_TWO_IMAGES_HTML_FD, counter);
+		Output.printTmpToHTML(RecognitionParameters.COMPARE_HTML_FD, counter);
     	
 		return counter;
 	}

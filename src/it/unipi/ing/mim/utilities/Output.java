@@ -67,16 +67,16 @@ public class Output {
 	 * */
 	public static void printTmpToHTML(File outputFile, int matches){
 		String html = "<html>\n<body>\n";
-		File [] imgList = RecognitionParameters.TMP_FOLDER_FD.listFiles();
+		File [] imgList = RecognitionParameters.TMP_COMPARE_FOLDER.listFiles();
 		
 		int i = 1;
 		for (File image : imgList){
 			// skip hidden files
 			if(image.isHidden())
 				continue;
-			html += "<img src=\"" + RecognitionParameters.BASE_URI_TMP_FD + image.getName() + "\" style=\"width:300px;height:300px;\">";
+			html += "<img src=\"" + RecognitionParameters.BASE_URI_COMPARE_TMP + image.getName() + "\" style=\"width:200px;height:200px;\">&nbsp;";
 			if (i%2 == 0)
-				html += "<br>";
+				html += "<br><br>";
 			if (i == matches*2)
 				break;
 			i++;			

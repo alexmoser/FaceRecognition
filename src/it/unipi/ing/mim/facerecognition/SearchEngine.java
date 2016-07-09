@@ -20,6 +20,15 @@ public class SearchEngine {
 	
 	public static void main(String[] args) throws Exception {
 
+		//Image Query File
+		System.out.print("Enter image path : ");
+		BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+	    String imgPath = bufferRead.readLine();
+		
+		searchEngine(imgPath, 10);
+	}
+	
+	public static void searchEngine(String imgPath, int K) throws ClassNotFoundException {
 		SearchEngine searcher = new SearchEngine();
 		DNNExtractor extractor = new DNNExtractor();
 		
@@ -32,18 +41,14 @@ public class SearchEngine {
 			return;
 		}
 
-		//Image Query File
-		System.out.print("Enter image path : ");
-		BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-	    String imgPath = bufferRead.readLine();
 		File img = new File(imgPath);
 		
 		float[] features = extractor.extract(img, ExtractionParameters.DEEP_LAYER);
 		ImgDescriptor query = new ImgDescriptor(features, img.getName());
 				
-		List<ImgDescriptor> res = searcher.search(query, RecognitionParameters.K);
+		List<ImgDescriptor> res = searcher.search(query, K);
 		
-		Output.toHTML(res, RecognitionParameters.BASE_URI, RecognitionParameters.SEARCH_ENGINE_HTML);
+		Output.toHTML(res, RecognitionParameters.BASE_URI_SEARCH_ENGINE, RecognitionParameters.SEARCH_ENGINE_HTML);
 	}
 		
 	public void open(File storageFile) throws ClassNotFoundException, IOException {

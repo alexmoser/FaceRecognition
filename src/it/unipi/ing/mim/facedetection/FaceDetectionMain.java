@@ -26,7 +26,7 @@ public class FaceDetectionMain {
 			CanvasFrame canvasFrame = Utility.getCanvas(img[i].cols(), img[i].rows());
 			canvasFrame.setTitle("face_" + i);
 			canvasFrame.showImage(new OpenCVFrameConverter.ToMat().convert(img[i]));
-			Utility.face2File(img[i], new File(RecognitionParameters.TMP_FOLDER_FD + "/" + "match_"+i + "_img1_" + i +".jpg"));
+			Utility.face2File(img[i], new File(RecognitionParameters.TMP_COMPARE_FOLDER + "/" + "match_"+i + "_img1_" + i +".jpg"));
 			
 		}
 	}

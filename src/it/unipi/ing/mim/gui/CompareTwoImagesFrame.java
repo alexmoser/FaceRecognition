@@ -6,6 +6,7 @@ import javax.swing.JFileChooser;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 
+import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -21,6 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import it.unipi.ing.mim.facerecognition.CompareTwoImages;
 import it.unipi.ing.mim.facerecognition.CompareTwoImagesFaceDetection;
+import it.unipi.ing.mim.facerecognition.RecognitionParameters;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -49,6 +51,8 @@ public class CompareTwoImagesFrame {
 	private JLabel lblImg2;
 	private JLabel lblImg1;
 	private JLabel lblResult;
+	private final Action showMatchesAction = new ShowMatchesAction();
+	private JButton btnShowMatches;
 
 	/**
 	 * Launch the application.
@@ -86,6 +90,10 @@ public class CompareTwoImagesFrame {
 		btnHome.setBounds(0, 249, 450, 29);
 		frame.getContentPane().add(btnHome);
 		btnHome.setAction(homeAction);
+		
+		JLayeredPane pane2 = new JLayeredPane();
+		pane2.setBounds(0, 0, 1, 1);
+		frame.getContentPane().add(pane2);
 		
 		pane1 = new JLayeredPane();
 		pane1.setBounds(0, 0, 450, 249);
@@ -125,11 +133,6 @@ public class CompareTwoImagesFrame {
 		chckbxFaceDetection.setBounds(18, 179, 128, 23);
 		pane1.add(chckbxFaceDetection);
 		
-		btnCompare = new JButton("Compare");
-		btnCompare.setBounds(0, 220, 450, 29);
-		pane1.add(btnCompare);
-		btnCompare.setAction(compareAction);
-		
 		lblImg1 = new JLabel("");
 		lblImg1.setBounds(40, 6, WIDTH, HEIGHT);
 		lblImg1.setVisible(false);
@@ -141,10 +144,22 @@ public class CompareTwoImagesFrame {
 		pane1.add(lblImg2);
 		
 		lblResult = new JLabel("New label");
-		lblResult.setBounds(6, 225, 438, 16);
+		lblResult.setBounds(6, 198, 438, 16);
 		lblResult.setHorizontalAlignment(JLabel.CENTER);
 		lblResult.setHorizontalTextPosition(JLabel.CENTER);
+		lblResult.setVisible(false);
 		pane1.add(lblResult);
+		
+		btnShowMatches = new JButton("Show Result");
+		btnShowMatches.setAction(showMatchesAction);
+		btnShowMatches.setBounds(0, 220, 450, 29);
+		btnShowMatches.setVisible(false);
+		pane1.add(btnShowMatches);
+		
+		btnCompare = new JButton("Compare");
+		btnCompare.setBounds(0, 220, 450, 29);
+		pane1.add(btnCompare);
+		btnCompare.setAction(compareAction);
 	}
 
 	private class HomeAction extends AbstractAction {
@@ -173,7 +188,7 @@ public class CompareTwoImagesFrame {
 				int returnVal = fileChooser.showOpenDialog(null);
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
 					txtPath1.setText(fileChooser.getSelectedFile().getAbsolutePath());
-					System.out.println("You chose to open this file: " + fileChooser.getSelectedFile().getName());
+					System.out.println("Selected file: " + fileChooser.getSelectedFile().getPath());
 				}
 		}
 	}
@@ -226,6 +241,7 @@ public class CompareTwoImagesFrame {
 			}
 			catch (Exception e1) {
 				System.err.println("Images not valid!");
+				e1.printStackTrace();
 				changeVisibility(true);
 				return;
 			}
@@ -235,17 +251,36 @@ public class CompareTwoImagesFrame {
 		}
 	}
 	
-	private void changeVisibility(boolean first) {
-		lblFirstImage.setVisible(first);
-		lblSecondImage.setVisible(first);
-		txtPath1.setVisible(first);
-		txtPath2.setVisible(first);
-		btnBrowse.setVisible(first);
-		btnBrowse_1.setVisible(first);
-		btnCompare.setVisible(first);
-		chckbxFaceDetection.setVisible(first);
-		lblImg1.setVisible(!first);
-		lblImg2.setVisible(!first);
+	private class ShowMatchesAction extends AbstractAction {
+		public ShowMatchesAction() {
+			putValue(NAME, "Show Matches");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+			// open .html results file
+			try {
+				Desktop.getDesktop().browse(RecognitionParameters.COMPARE_HTML_FD.toURI());
+			}
+			catch(IOException e1) {
+				System.err.println("Html results file not found!");
+				return;
+			}
+		}
+	}
+	
+	private void changeVisibility(boolean visible) {
+		lblFirstImage.setVisible(visible);
+		lblSecondImage.setVisible(visible);
+		txtPath1.setVisible(visible);
+		txtPath2.setVisible(visible);
+		btnBrowse.setVisible(visible);
+		btnBrowse_1.setVisible(visible);
+		btnCompare.setVisible(visible);
+		chckbxFaceDetection.setVisible(visible);
+		lblImg1.setVisible(!visible);
+		lblImg2.setVisible(!visible);
+		lblResult.setVisible(!visible);
+		btnShowMatches.setVisible(!visible);
 		
 	}
 	
