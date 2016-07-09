@@ -24,15 +24,17 @@ public class SearchEngineFaceDetection {
 	
 	public static void main(String[] args) throws Exception {
 		//Image Query File
-		System.out.print("Enter image path : ");
 		BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+		System.out.print("Enter image path : ");
 	    String imgPath = bufferRead.readLine();
+	    System.out.print("Enter number of desired similar images : ");
+	    int K = Integer.parseInt(bufferRead.readLine());
 
 		FaceDetection faceDetector = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
 		
 		Mat[] imgMat = faceDetector.getFaces(imgPath, DetectionParameters.PADDING);
 	 
-		searchEngine(imgPath, 10, imgMat[1]);
+		searchEngine(imgPath, K, imgMat[0]);
 	}
 	
 	public static void searchEngine(String imgPath, int K, Mat imgMat) throws ClassNotFoundException {
