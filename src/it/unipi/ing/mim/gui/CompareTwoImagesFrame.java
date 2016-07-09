@@ -280,7 +280,8 @@ public class CompareTwoImagesFrame {
 		lblImg1.setVisible(!visible);
 		lblImg2.setVisible(!visible);
 		lblResult.setVisible(!visible);
-		btnShowMatches.setVisible(!visible);
+		if(chckbxFaceDetection.isSelected())
+			btnShowMatches.setVisible(!visible);
 		
 	}
 	
