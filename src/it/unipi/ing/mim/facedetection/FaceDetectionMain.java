@@ -17,7 +17,7 @@ public class FaceDetectionMain {
 	
 		FaceDetection faceDetection = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
 		
-		Mat [] img = faceDetection.getFaces("data/prova3.jpg", 0.6f);
+		Mat [] img = faceDetection.getFaces("data/friends.jpg", 0.6f);
 		
 		if(img.length == 0)
 			System.out.println("Face not found");

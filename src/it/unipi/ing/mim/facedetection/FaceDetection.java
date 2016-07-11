@@ -38,7 +38,7 @@ public class FaceDetection {
 		double sf = 1.2;
 		do{
 			face_cascade.detectMultiScale(img, face, sf, 4, CV_HAAR_DO_CANNY_PRUNING, minSize, maxSize);
-			sf -= 0.05;
+			sf -= 0.02;
 			if(sf <= 1)
 				break;
 			// if no faces have been detected, reduce scaling factor and keep trying

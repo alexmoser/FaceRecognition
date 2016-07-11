@@ -13,8 +13,8 @@ import it.unipi.ing.mim.utilities.CsvFileWriter;
 public class CreateThresholdStatistics {
 
 	// min and max values are computed based on distances obtained with CreateDistanceFile class
-	private static final float MIN_THRESHOLD = 0.46f;
-	private static final float MAX_THRESHOLD = 1.42f;
+	private static final float MIN_THRESHOLD = 1.23f;
+	private static final float MAX_THRESHOLD = 1.27f;
 	// step defines the increasing step of the threshold
 	private static final float STEP = 0.0001f; 
 	
@@ -25,12 +25,12 @@ public class CreateThresholdStatistics {
 		int correct = 0;
 		String tmp;
 		
-		CsvFileWriter fileWriter = new CsvFileWriter("Threshold,Correct,FP,FN", DistanceParameters.STATISTICS_FILE);
+		CsvFileWriter fileWriter = new CsvFileWriter("Threshold,Correct,FP,FN", DistanceParameters.STATISTICS_FILE_FD);
 		
 		// test the distances for all the thresholds in the specified range
 		for(float threshold = MIN_THRESHOLD; threshold <= MAX_THRESHOLD; threshold += STEP){
 			
-			FileReader source = new FileReader(DistanceParameters.DISTANCES_FILE);
+			FileReader source = new FileReader(DistanceParameters.DISTANCES_FILE_FD);
 			BufferedReader b = new BufferedReader(source);
 			
 		    /* read the first two lines from the distances file previously created 

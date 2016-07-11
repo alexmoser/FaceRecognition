@@ -46,14 +46,24 @@ public class CreateSeqFeaturesFileFaceDetection {
 					continue;
 				// face detection
 				FaceDetection faceDetector = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
-				Mat img = faceDetector.getFaces(fileList[j].getAbsolutePath());
+				Mat img[] = faceDetector.getFaces(fileList[j].getAbsolutePath(), DetectionParameters.PADDING);
 				// extract the deep features
-				float [] features = obj.extract(fileList[j], ExtractionParameters.DEEP_LAYER);
-				// put the features in an Imgdescriptor object (as ID use the file name)
-				ImgDescriptor temp = new ImgDescriptor(features, fileList[j].getName());
-				// add it to the descs list
-				descs.add(temp);
-				System.out.println("Feature " + (j) + ", " + temp.id);
+				for(int k = 0; k < img.length; k++){
+					float [] features = obj.extract(img[k], ExtractionParameters.DEEP_LAYER);
+					// put the features in an Imgdescriptor object (as ID use the file name)
+					ImgDescriptor temp = new ImgDescriptor(features, fileList[j].getName() + "_" + k);
+					// add it to the descs list
+					descs.add(temp);
+					System.out.println("Feature " + (j) + ", " + temp.id + " , face " + k);	
+				}	
+				if(img.length == 0){
+					float [] features = obj.extract(fileList[j], ExtractionParameters.DEEP_LAYER);
+					// put the features in an Imgdescriptor object (as ID use the file name)
+					ImgDescriptor temp = new ImgDescriptor(features, fileList[j].getName());
+					// add it to the descs list
+					descs.add(temp);
+					System.out.println("Feature " + (j) + ", " + temp.id);	
+				}
 			}
 		}
 		

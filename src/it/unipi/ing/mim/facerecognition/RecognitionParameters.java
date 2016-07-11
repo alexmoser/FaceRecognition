@@ -10,7 +10,7 @@ public class RecognitionParameters {
 	//Threshold chosen statistically
 	public static final float THRESHOLD = 1.2507f;
 	//Threshold chosen statistically using face detection
-	public static final float THRESHOLD_FD = 1.2507f;
+	public static final float THRESHOLD_FD = 1.2405f;
 	
 	public static final File SRC_FOLDER = new File("data/lfw_funneled");
 	public static final File SRC_FOLDER_FD = new File("data/lfw");
