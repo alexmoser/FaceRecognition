@@ -165,7 +165,7 @@ public class CompareTwoImagesFrame {
 	private class HomeAction extends AbstractAction {
 		public HomeAction() {
 			putValue(NAME, "Home");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(SHORT_DESCRIPTION, "Click here to go back to the main menu");
 		}
 		public void actionPerformed(ActionEvent e) {
 			frame.setVisible(false);
@@ -175,7 +175,7 @@ public class CompareTwoImagesFrame {
 	private class BrowseImg1Action extends AbstractAction {
 		public BrowseImg1Action() {
 			putValue(NAME, "Browse");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(SHORT_DESCRIPTION, "Click here to browse your computer's folders");
 		}
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser fileChooser = new JFileChooser();
@@ -196,7 +196,7 @@ public class CompareTwoImagesFrame {
 	private class BrowseImg2Action extends AbstractAction {
 		public BrowseImg2Action() {
 			putValue(NAME, "Browse");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(SHORT_DESCRIPTION, "Click here to browse your computer's folders");
 		}
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser fileChooser = new JFileChooser();
@@ -209,7 +209,7 @@ public class CompareTwoImagesFrame {
 				int returnVal = fileChooser.showOpenDialog(null);
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
 					txtPath2.setText(fileChooser.getSelectedFile().getAbsolutePath());
-					System.out.println("You chose to open this file: " + fileChooser.getSelectedFile().getName());
+					System.out.println("Selected file: " + fileChooser.getSelectedFile().getPath());
 				}
 		}
 	}
@@ -217,7 +217,7 @@ public class CompareTwoImagesFrame {
 	private class CompareAction extends AbstractAction {
 		public CompareAction() {
 			putValue(NAME, "Compare");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(SHORT_DESCRIPTION, "Click here to compare the two images provided");
 		}
 		public void actionPerformed(ActionEvent e) {
 			boolean res = false;
@@ -256,7 +256,7 @@ public class CompareTwoImagesFrame {
 	private class ShowMatchesAction extends AbstractAction {
 		public ShowMatchesAction() {
 			putValue(NAME, "Show Matches");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(SHORT_DESCRIPTION, "Click here to show the matches found");
 		}
 		public void actionPerformed(ActionEvent e) {
 			// open .html results file

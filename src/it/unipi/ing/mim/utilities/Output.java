@@ -60,12 +60,11 @@ public class Output {
 	/**
 	 * This method is specific for the generation of the file .html representing the output
 	 * of the CompareTwoImages functionality. 
-	 * It prints to an html file all the images contained in the "tmp" folder.
-	 * The images are printed as pairs of matching faces, according to the matches parameter.
+	 * It prints to an html file all the images contained in the "tmp_compare" folder.
+	 * The images are printed as pairs of matching faces.
 	 * @param outputFile is the file to be created
-	 * @param matches is the number of matches   
 	 * */
-	public static void printTmpToHTML(File outputFile, int matches){
+	public static void printTmpToHTML(File outputFile){
 		String html = "<html>\n<body>\n";
 		File [] imgList = RecognitionParameters.TMP_COMPARE_FOLDER.listFiles();
 		
@@ -77,8 +76,6 @@ public class Output {
 			html += "<img src=\"" + RecognitionParameters.BASE_URI_COMPARE_TMP + image.getName() + "\" style=\"width:200px;height:200px;\">&nbsp;";
 			if (i%2 == 0)
 				html += "<br><br>";
-			if (i == matches*2)
-				break;
 			i++;			
 		}
 
@@ -91,5 +88,13 @@ public class Output {
 	        // TODO Auto-generated catch block
 	        e.printStackTrace();
         }
+	}
+	
+	public static boolean deleteAllFiles(File directory) {
+		File[] fileList = directory.listFiles();
+		for(int i=0; i<fileList.length; i++) 
+			if(fileList[i].delete() == false)
+				return false;
+		return true;
 	}
 }

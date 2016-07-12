@@ -34,6 +34,7 @@ import it.unipi.ing.mim.facedetection.Utility;
 import it.unipi.ing.mim.facerecognition.RecognitionParameters;
 import it.unipi.ing.mim.facerecognition.SearchEngine;
 import it.unipi.ing.mim.facerecognition.SearchEngineFaceDetection;
+import it.unipi.ing.mim.utilities.Output;
 
 import javax.swing.JSpinner;
 import javax.swing.JCheckBox;
@@ -144,7 +145,7 @@ public class SearchEngineFrame {
 	private class HomeAction extends AbstractAction {
 		public HomeAction() {
 			putValue(NAME, "Home");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(SHORT_DESCRIPTION, "Click here to go back to the main menu");
 		}
 		public void actionPerformed(ActionEvent e) {
 			frame.setVisible(false);
@@ -154,7 +155,7 @@ public class SearchEngineFrame {
 	private class BrowseAction extends AbstractAction {
 		public BrowseAction() {
 			putValue(NAME, "Browse");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(SHORT_DESCRIPTION, "Click here to browse your computer's folders");
 		}
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser fileChooser = new JFileChooser();
@@ -171,7 +172,7 @@ public class SearchEngineFrame {
 	private class SearchAction extends AbstractAction {
 		public SearchAction() {
 			putValue(NAME, "Search");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(SHORT_DESCRIPTION, "Click here to start searching");
 		}
 		public void actionPerformed(ActionEvent e) {
 			try {
@@ -183,9 +184,17 @@ public class SearchEngineFrame {
 					lblSelect.setText(imgMat.length + " faces have been detected, please select one face");
 					int x_offset = 40 + WIDTH,
 						y_offset = 17;
+					
+					// Delete old temporary files
+			    	if(RecognitionParameters.TMP_SEARCH_ENGINE_FOLDER.exists()) {
+			    		Output.deleteAllFiles(RecognitionParameters.TMP_SEARCH_ENGINE_FOLDER);
+			    	}
+			    	else {	
+			    		// Create new temporary directory
+			    		RecognitionParameters.TMP_SEARCH_ENGINE_FOLDER.mkdirs();
+			    	}
+			    	
 					for(int i = 0; i < imgMat.length; i++){
-						if(!RecognitionParameters.TMP_SEARCH_ENGINE_FOLDER.exists())
-							RecognitionParameters.TMP_SEARCH_ENGINE_FOLDER.mkdir();
 						final String facePath = RecognitionParameters.TMP_SEARCH_ENGINE_FOLDER + "/" + "face_" + i + ".jpg";
 						Utility.face2File(imgMat[i], new File(facePath));
 						JLabel lblFace = new JLabel("");

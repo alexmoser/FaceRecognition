@@ -25,7 +25,8 @@ public class CsvFileWriter {
 	public CsvFileWriter(String header, File file) {
 		try{
 			this.file = file;
-			this.file.getParentFile().mkdirs();
+			if(!this.file.exists())
+				this.file.getParentFile().mkdirs();
 			this.file.createNewFile();
 			outputStream = new FileOutputStream(this.file, false);
             sw = new OutputStreamWriter(outputStream);

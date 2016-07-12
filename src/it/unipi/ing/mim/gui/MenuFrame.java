@@ -12,6 +12,8 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
+import java.io.File;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -83,7 +85,7 @@ public class MenuFrame {
 	private class CompareTwoImagesAction extends AbstractAction {
 		public CompareTwoImagesAction() {
 			putValue(NAME, "Compare Two Images");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(SHORT_DESCRIPTION, "Click here to compare two images");
 		}
 		public void actionPerformed(ActionEvent e) {
 			frame.setVisible(false);
@@ -94,7 +96,7 @@ public class MenuFrame {
 	private class SearchEngineAction extends AbstractAction {
 		public SearchEngineAction() {
 			putValue(NAME, "Search Engine");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(SHORT_DESCRIPTION, "Click here to search similar images in the database");
 		}
 		public void actionPerformed(ActionEvent e) {
 			frame.setVisible(false);
