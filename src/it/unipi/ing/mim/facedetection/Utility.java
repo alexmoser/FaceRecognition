@@ -2,72 +2,29 @@ package it.unipi.ing.mim.facedetection;
 
 import static org.bytedeco.javacpp.opencv_core.*;
 import static org.bytedeco.javacpp.opencv_imgcodecs.*;
-import static org.bytedeco.javacpp.opencv_imgproc.*;
-
 import java.io.File;
-import java.io.FilenameFilter;
-
-import org.bytedeco.javacpp.opencv_core.CvPoint;
-import org.bytedeco.javacpp.opencv_core.CvScalar;
-import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacpp.opencv_core.Point;
 import org.bytedeco.javacpp.opencv_core.Rect;
-import org.bytedeco.javacpp.opencv_core.Scalar;
-import org.bytedeco.javacpp.opencv_core.Size;
 import org.bytedeco.javacv.CanvasFrame;
-import org.bytedeco.javacv.Frame;
-import org.bytedeco.javacv.OpenCVFrameConverter;
 
 /**
- * This class contains utility function used for the face detection.
+ * This class contains utility functions used for the face detection.
  * */
 public class Utility {
 	
-	private static OpenCVFrameConverter.ToMat frame2Mat = new OpenCVFrameConverter.ToMat();
-	
-	public static CanvasFrame getCanvas(int width, int height) {
-		CanvasFrame canvasFrame = new CanvasFrame("OpenCV Face Recognition");
+	/**
+	 * Generates a canvas frame of the specified dimensions and the specified title.
+	 * @param width is the width of the canvas frame to generate
+	 * @param height is the height of the canvas frame to generate
+	 * @param title is the text to be set as title of the canvas
+	 * @return a canvas frame of the specified dimensions
+	 * */
+	public static CanvasFrame getCanvas(int width, int height, String title) {
+		CanvasFrame canvasFrame = new CanvasFrame(title);
 		canvasFrame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
 		canvasFrame.setCanvasSize(width, height);
 		
 		return canvasFrame;
-	}
-	
-	public static void highlight(Frame image, Rect rect) {
-		highlight(frame2Mat.convertToIplImage(image), rect);
-	}
-	
-	public static void highlight(IplImage image, Rect rect) {
-		int xMin = rect.x();
-		int yMin = rect.y();
-		int xMax = rect.width() + rect.x();
-		int yMax = rect.height() + rect.y();
-		int thick = 1;
-
-		CvPoint pt1 = cvPoint(xMin, yMin);
-		CvPoint pt2 = cvPoint(xMax, yMax);
-		CvScalar color = cvScalar(255, 0, 0, 0); // blue [green] [red]
-		cvRectangle(image, pt1, pt2, color, thick, 4, 0);
-	}
-
-	public static void highlight(Mat image, Rect rect) {
-		int xMin = rect.x();
-		int yMin = rect.y();
-		int xMax = rect.width() + rect.x();
-		int yMax = rect.height() + rect.y();
-		int thick = 1;
-
-		Point pt1 = new Point(xMin, yMin);
-		Point pt2 = new Point(xMax, yMax);
-		Scalar color = new Scalar(255, 0, 0, 0); // blue [green] [red]
-		rectangle(image, pt1, pt2, color, thick, 4, 0);
-	}
-
-	public static Mat getGrayImage(Mat img) {
-		Mat grayImg = new Mat(img.cols(), img.rows(), CV_8UC1);
-		cvtColor(img, grayImg, CV_BGR2GRAY);
-		return grayImg;
 	}
 
 	/**
@@ -132,31 +89,15 @@ public class Utility {
 		return roi;
 	}
 
+	/**
+	 * Saves the specified image as the specified file.
+	 * @param imgROI is the image to be saved
+	 * @param outFile is the file that will contain the image
+	 * @return the created file
+	 * */
 	public static File face2File(Mat imgROI, File outFile) {
 		imwrite(outFile.getAbsolutePath(), imgROI);
 		return outFile;
 	}
-
-	public static Mat getNormalizedImage(Mat img) {
-		Mat resized = new Mat();
-		resize(img, resized, new Size(300, 300));
-		return resized;
-	}
-
-	public static int countNumFiles(File classesFolder) {
-		int numFiles = 0;
-		File[] listFiles = classesFolder.listFiles();
-		for (File file : listFiles) {
-			if (file.isDirectory()) {
-				numFiles += file.listFiles(imgFilter).length;
-			}
-		}
-		return numFiles;
-	}
 	
-	 public static FilenameFilter imgFilter = new FilenameFilter() {
-         public boolean accept(File dir, String name) {
-             return name.toLowerCase().endsWith(".jpg");
-         }
-     };
 }

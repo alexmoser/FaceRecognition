@@ -17,19 +17,18 @@ import java.io.IOException;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPopupMenu;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import it.unipi.ing.mim.facerecognition.CompareTwoImages;
-import it.unipi.ing.mim.facerecognition.CompareTwoImagesFaceDetection;
 import it.unipi.ing.mim.facerecognition.RecognitionParameters;
 
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
 import javax.swing.JLayeredPane;
 
+/**
+ * This class implements the graphic interface for the Compare Two Images functionality.
+ * */
 public class CompareTwoImagesFrame {
 
 	private final int WIDTH = 180;
@@ -163,6 +162,10 @@ public class CompareTwoImagesFrame {
 	}
 
 	private class HomeAction extends AbstractAction {
+		/**
+		 * default serialVersionUID assigned
+		 */
+		private static final long serialVersionUID = 1L;
 		public HomeAction() {
 			putValue(NAME, "Home");
 			putValue(SHORT_DESCRIPTION, "Click here to go back to the main menu");
@@ -173,6 +176,10 @@ public class CompareTwoImagesFrame {
 		}
 	}
 	private class BrowseImg1Action extends AbstractAction {
+		/**
+		 * default serialVersionUID assigned
+		 */
+		private static final long serialVersionUID = 1L;
 		public BrowseImg1Action() {
 			putValue(NAME, "Browse");
 			putValue(SHORT_DESCRIPTION, "Click here to browse your computer's folders");
@@ -194,6 +201,10 @@ public class CompareTwoImagesFrame {
 	}
 
 	private class BrowseImg2Action extends AbstractAction {
+		/**
+		 * default serialVersionUID assigned
+		 */
+		private static final long serialVersionUID = 1L;
 		public BrowseImg2Action() {
 			putValue(NAME, "Browse");
 			putValue(SHORT_DESCRIPTION, "Click here to browse your computer's folders");
@@ -215,6 +226,10 @@ public class CompareTwoImagesFrame {
 	}
 	
 	private class CompareAction extends AbstractAction {
+		/**
+		 * default serialVersionUID assigned
+		 */
+		private static final long serialVersionUID = 1L;
 		public CompareAction() {
 			putValue(NAME, "Compare");
 			putValue(SHORT_DESCRIPTION, "Click here to compare the two images provided");
@@ -225,7 +240,8 @@ public class CompareTwoImagesFrame {
 			try{
 				changeVisibility(false);
 				if(chckbxFaceDetection.isSelected()) {
-					faces = CompareTwoImagesFaceDetection.compare(txtPath1.getText(), txtPath2.getText());
+					/* face detection */
+					faces = CompareTwoImages.compareWithFaceDetection(txtPath1.getText(), txtPath2.getText());
 					if(faces > 0)
 						lblResult.setText("There are " + faces + " people that appear in both images");
 					else {
@@ -234,6 +250,7 @@ public class CompareTwoImagesFrame {
 					}
 				}
 				else { 
+					/* no face detection */
 					res = CompareTwoImages.compare(txtPath1.getText(), txtPath2.getText());
 					if(res)
 						lblResult.setText("The person in the two images is the same!");
@@ -254,13 +271,17 @@ public class CompareTwoImagesFrame {
 	}
 	
 	private class ShowMatchesAction extends AbstractAction {
+		/**
+		 * default serialVersionUID assigned
+		 */
+		private static final long serialVersionUID = 1L;
 		public ShowMatchesAction() {
 			putValue(NAME, "Show Matches");
 			putValue(SHORT_DESCRIPTION, "Click here to show the matches found");
 		}
 		public void actionPerformed(ActionEvent e) {
-			// open .html results file
 			try {
+				// open .html results file
 				Desktop.getDesktop().browse(RecognitionParameters.COMPARE_HTML_FD.toURI());
 			}
 			catch(IOException e1) {

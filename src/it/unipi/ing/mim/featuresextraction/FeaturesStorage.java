@@ -8,6 +8,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
+/**
+ * This class has been provided us during the programming classes.
+ * It takes care of the loading and the storage of the image descriptors from/to a .dat file. 
+ * We did not modify any code.
+ * */
 public class FeaturesStorage {
 	
 	public static void store(List<ImgDescriptor> ids, File storageFile) throws IOException {
@@ -24,6 +29,7 @@ public class FeaturesStorage {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static List<ImgDescriptor> load(File storageFile) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(storageFile);
         ObjectInputStream ois = new ObjectInputStream(fis);

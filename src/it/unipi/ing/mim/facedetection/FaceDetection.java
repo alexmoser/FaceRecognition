@@ -65,9 +65,11 @@ public class FaceDetection {
 			// detect the face
 			RectVector faces = detect(img, DetectionParameters.FACE_MIN_SIZE, DetectionParameters.FACE_MAX_SIZE);
 			ret = new Mat[(int)faces.size()];
+			
 			System.out.println("Number of detected faces: " + faces.size());
+			
 			for(int i = 0; i < faces.size(); i++){
-				//Utility.highlight(img, faces.get(i));
+				// get the detected bounded box
 				ret[i] = Utility.getImageROI(img, faces.get(i), padding);
 			}
 			

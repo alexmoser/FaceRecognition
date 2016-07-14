@@ -7,20 +7,22 @@ import java.io.File;
  * */
 public class RecognitionParameters {
 
-	//Threshold chosen statistically
+	// Threshold chosen statistically
 	public static final float THRESHOLD = 1.2507f;
-	//Threshold chosen statistically using face detection
+	// Threshold chosen statistically using face detection
 	public static final float THRESHOLD_FD = 1.2405f;
 	
+	// Images Source Folder
 	public static final File SRC_FOLDER = new File("data/lfw_funneled");
 	public static final File SRC_FOLDER_FD = new File("data/lfw");
 
+	// Temporary folders used to store images of the detected faces
 	public static final File TMP_COMPARE_FOLDER = new File("out/tmp_compare");
 	public static final File TMP_SEARCH_ENGINE_FOLDER = new File("out/tmp_search_engine");
 	
 	//HTML Output Parameters
 
-	/* note:in BASE_URI_SEARCH_ENGINE_FD we should be using SRC_FOLDER_FD, but due to time constraints
+	/* Note: in BASE_URI_SEARCH_ENGINE_FD we should be using SRC_FOLDER_FD, but due to time constraints
 	 * we didn't create the features database for the lfw images. 
 	 * Hence we base our search on the lfw_funneled database, for which the features have been stored.
 	 * */

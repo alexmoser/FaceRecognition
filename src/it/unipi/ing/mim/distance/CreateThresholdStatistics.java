@@ -13,8 +13,8 @@ import it.unipi.ing.mim.utilities.CsvFileWriter;
 public class CreateThresholdStatistics {
 
 	// min and max values are computed based on distances obtained with CreateDistanceFile class
-	private static final float MIN_THRESHOLD = 1.23f;
-	private static final float MAX_THRESHOLD = 1.27f;
+	private static final float MIN_THRESHOLD = 0.46f;
+	private static final float MAX_THRESHOLD = 1.42f;
 	// step defines the increasing step of the threshold
 	private static final float STEP = 0.0001f; 
 	

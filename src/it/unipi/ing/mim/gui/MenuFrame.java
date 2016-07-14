@@ -4,28 +4,17 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.Window;
-
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
-import java.awt.event.ActionListener;
-import java.io.File;
 
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-
+/**
+ * This is the main of the entire application. It provides a graphic interface
+ * that allows the user to choose between the two different functions.
+ * */
 public class MenuFrame {
 
 	private JFrame frame;
-	private final Action browseAction = new BrowseAction();
 	private final Action compareTwoImagesAction = new CompareTwoImagesAction();
 	private final Action searchEngineAction = new SearchEngineAction();
 
@@ -72,17 +61,11 @@ public class MenuFrame {
 		frame.getContentPane().add(btnSearchEngine);
 	}
 	
-	private class BrowseAction extends AbstractAction {
-		public BrowseAction() {
-			putValue(NAME, "Browse");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-			System.out.println("SUCA");
-		}
-	}
-	
 	private class CompareTwoImagesAction extends AbstractAction {
+		/**
+		 * default serialVersionUID assigned
+		 */
+		private static final long serialVersionUID = 1L;
 		public CompareTwoImagesAction() {
 			putValue(NAME, "Compare Two Images");
 			putValue(SHORT_DESCRIPTION, "Click here to compare two images");
@@ -94,6 +77,10 @@ public class MenuFrame {
 	}
 	
 	private class SearchEngineAction extends AbstractAction {
+		/**
+		 * default serialVersionUID assigned
+		 */
+		private static final long serialVersionUID = 1L;
 		public SearchEngineAction() {
 			putValue(NAME, "Search Engine");
 			putValue(SHORT_DESCRIPTION, "Click here to search similar images in the database");

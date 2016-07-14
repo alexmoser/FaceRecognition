@@ -24,6 +24,13 @@ public class CreateSeqFeaturesFileFaceDetection {
 		FeaturesStorage.store(descriptors, ExtractionParameters.STORAGE_FILE_FD);
 	}
 	
+	/**
+	 * Creates a list containing one image descriptor for each file in the specified directory.
+	 * The features are extracted on the detected faces (if any) and not on the image as a whole.
+	 * If no faces are detected, then the features are extracted on the image.
+	 * @param imgFolder is the directory that contains all the files
+	 * @return a list of the descriptor of each file
+	 * */
 	private List<ImgDescriptor> extractFeatures(File imgFolder){
 		
 		List<ImgDescriptor>  descs = new ArrayList<ImgDescriptor>();

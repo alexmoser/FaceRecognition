@@ -9,8 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * This class provides a static method that allows to output a List of ImgDescriptors
- * to an Html file
+ * This class provides static methods that are used to produce the Html output files.
  * */
 public class Output {
 
@@ -46,6 +45,12 @@ public class Output {
         }
 	}
 
+	/**
+	 * Create a new file containing the specified text.
+	 * @param text is the text that needs to be included in the file
+	 * @param file is the file to create
+	 * @throws IOException
+	 * */
 	private static void string2File(String text, File file) throws IOException {
 		FileWriter fileWriter = null;
 		try {
@@ -64,7 +69,7 @@ public class Output {
 	 * The images are printed as pairs of matching faces.
 	 * @param outputFile is the file to be created
 	 * */
-	public static void printTmpToHTML(File outputFile){
+	public static void printTmpToHTML(File outputFile) {
 		String html = "<html>\n<body>\n";
 		File [] imgList = RecognitionParameters.TMP_COMPARE_FOLDER.listFiles();
 		
@@ -90,6 +95,11 @@ public class Output {
         }
 	}
 	
+	/**
+	 * This method deletes all the files contained in the specified directory.
+	 * @param directory is the directory containing the files to delete
+	 * @return true if all the files have been deleted, false otherwise
+	 * */
 	public static boolean deleteAllFiles(File directory) {
 		File[] fileList = directory.listFiles();
 		for(int i=0; i<fileList.length; i++) 

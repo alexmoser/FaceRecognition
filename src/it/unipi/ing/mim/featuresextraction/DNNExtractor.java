@@ -16,6 +16,11 @@ import org.bytedeco.javacpp.opencv_dnn.Blob;
 import org.bytedeco.javacpp.opencv_dnn.Importer;
 import org.bytedeco.javacpp.opencv_dnn.Net;
 
+/**
+ * This class has been provided us during the programming classes. It takes care of loading
+ * the neural network and extracting the features.
+ * We did not modify any code.
+ * */
 public class DNNExtractor {
 
 	private Mat meanImg;
@@ -23,21 +28,21 @@ public class DNNExtractor {
 	private Size imgSize;
 	
 	public DNNExtractor() {		
-			//Create the importer of Caffe framework network
-			Importer importer = createCaffeImporter(new File(ExtractionParameters.DEEP_PROTO).getAbsolutePath(), new File(ExtractionParameters.DEEP_MODEL).getAbsolutePath());
-			
-			//Initialize the network
-			net = new Net();
-			
-			//Add loaded layers into the net and sets connections between them
-			importer.populateNet(net);
-	        importer.close();
-	        
-	        imgSize = new Size(ExtractionParameters.IMG_WIDTH, ExtractionParameters.IMG_HEIGHT);
+		//Create the importer of Caffe framework network
+		Importer importer = createCaffeImporter(new File(ExtractionParameters.DEEP_PROTO).getAbsolutePath(), new File(ExtractionParameters.DEEP_MODEL).getAbsolutePath());
+		
+		//Initialize the network
+		net = new Net();
+		
+		//Add loaded layers into the net and sets connections between them
+		importer.populateNet(net);
+        importer.close();
+        
+        imgSize = new Size(ExtractionParameters.IMG_WIDTH, ExtractionParameters.IMG_HEIGHT);
 
-			meanImg = imread(new File(ExtractionParameters.DEEP_MEAN_IMG).getAbsolutePath());
-			meanImg.convertTo(meanImg, CV_32FC3);
-			resize(meanImg, meanImg, imgSize);
+		meanImg = imread(new File(ExtractionParameters.DEEP_MEAN_IMG).getAbsolutePath());
+		meanImg.convertTo(meanImg, CV_32FC3);
+		resize(meanImg, meanImg, imgSize);
 	}
 
 	public float[] extract(File image, String layer) {

@@ -11,7 +11,6 @@ public class ExtractionParameters {
 	public static final String DEEP_PROTO = "data/vgg_face_caffe/VGG_FACE_deploy.prototxt";
 	public static final String DEEP_MODEL = "data/vgg_face_caffe/VGG_FACE.caffemodel";
 	public static final String DEEP_MEAN_IMG = "data/vgg_face_caffe/mean.png";
-	
 	public static final String DEEP_LAYER = "fc7";
 	public static final int IMG_WIDTH = 224;
 	public static final int IMG_HEIGHT = 224;

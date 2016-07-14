@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class defines a main function whose target is to create a file containing all the 
+ * This class defines a main function whose target is to create a .mat file containing all the 
  * extracted features of the images in the database.
  * */
 public class CreateSeqFeaturesFile {
@@ -19,6 +19,11 @@ public class CreateSeqFeaturesFile {
 		FeaturesStorage.store(descriptors, ExtractionParameters.STORAGE_FILE);
 	}
 	
+	/**
+	 * Creates a list containing one image descriptor for each file in the specified directory.
+	 * @param imgFolder is the directory that contains all the files
+	 * @return a list of the descriptor of each file
+	 * */
 	private List<ImgDescriptor> extractFeatures(File imgFolder){
 		
 		List<ImgDescriptor>  descs = new ArrayList<ImgDescriptor>();

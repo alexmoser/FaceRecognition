@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
-import java.awt.BorderLayout;
 import java.awt.Desktop;
 
 import javax.imageio.ImageIO;
@@ -16,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -23,7 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
@@ -33,7 +32,7 @@ import it.unipi.ing.mim.facedetection.FaceDetection;
 import it.unipi.ing.mim.facedetection.Utility;
 import it.unipi.ing.mim.facerecognition.RecognitionParameters;
 import it.unipi.ing.mim.facerecognition.SearchEngine;
-import it.unipi.ing.mim.facerecognition.SearchEngineFaceDetection;
+import it.unipi.ing.mim.featuresextraction.ImgDescriptor;
 import it.unipi.ing.mim.utilities.Output;
 
 import javax.swing.JSpinner;
@@ -41,6 +40,9 @@ import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * This class implements the graphic interface for the Search Engine functionality.
+ * */
 public class SearchEngineFrame {
 
 	private final int WIDTH = 180;
@@ -143,6 +145,10 @@ public class SearchEngineFrame {
 	}
 
 	private class HomeAction extends AbstractAction {
+		/**
+		 * default serialVersionUID assigned
+		 */
+		private static final long serialVersionUID = 1L;
 		public HomeAction() {
 			putValue(NAME, "Home");
 			putValue(SHORT_DESCRIPTION, "Click here to go back to the main menu");
@@ -153,6 +159,10 @@ public class SearchEngineFrame {
 		}
 	}
 	private class BrowseAction extends AbstractAction {
+		/**
+		 * default serialVersionUID assigned
+		 */
+		private static final long serialVersionUID = 1L;
 		public BrowseAction() {
 			putValue(NAME, "Browse");
 			putValue(SHORT_DESCRIPTION, "Click here to browse your computer's folders");
@@ -170,6 +180,10 @@ public class SearchEngineFrame {
 		}
 	}
 	private class SearchAction extends AbstractAction {
+		/**
+		 * default serialVersionUID assigned
+		 */
+		private static final long serialVersionUID = 1L;
 		public SearchAction() {
 			putValue(NAME, "Search");
 			putValue(SHORT_DESCRIPTION, "Click here to start searching");
@@ -178,10 +192,11 @@ public class SearchEngineFrame {
 			try {
 				lblImg.setIcon(loadAndResizeImg(txtPath.getText(), WIDTH, HEIGHT));
 				changeVisibility(false);
+				
 				if(chckbxFaceDetection.isSelected()){
-					FaceDetection faceDetector = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
-					final Mat[] imgMat = faceDetector.getFaces(txtPath.getText(), DetectionParameters.PADDING);
-					lblSelect.setText(imgMat.length + " faces have been detected, please select one face");
+					/* face detection */
+					
+					// GUI variables
 					int x_offset = 40 + WIDTH,
 						y_offset = 17;
 					
@@ -194,21 +209,37 @@ public class SearchEngineFrame {
 			    		RecognitionParameters.TMP_SEARCH_ENGINE_FOLDER.mkdirs();
 			    	}
 			    	
+					FaceDetection faceDetector = new FaceDetection(DetectionParameters.HAAR_CASCADE_FRONTALFACE);
+					final Mat[] imgMat = faceDetector.getFaces(txtPath.getText(), DetectionParameters.PADDING);
+					
+					lblSelect.setText(imgMat.length + " faces have been detected, please select one face");
+			    	
+					// for each detected face
 					for(int i = 0; i < imgMat.length; i++){
+						// store as temporary image
 						final String facePath = RecognitionParameters.TMP_SEARCH_ENGINE_FOLDER + "/" + "face_" + i + ".jpg";
 						Utility.face2File(imgMat[i], new File(facePath));
+						
+						// assign to a label
 						JLabel lblFace = new JLabel("");
 						lblFace.setName("lblFace_" + i);
 						lblFace.setBounds(x_offset, y_offset, 50, 50);
 						lblFace.setIcon(loadAndResizeImg(facePath, 50, 50));
+						
+						// the image has been selected
 						lblFace.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent e) {
+								// get index of the selected faces
 								String name = lblFace.getName();
 								String [] tmp = name.split("_");
 								int index = Integer.parseInt(tmp[1]);
 								try{
-									SearchEngineFaceDetection.searchEngine(facePath, (int)spinner.getValue(), imgMat[index]);
+									// search selected image most similar images
+									List<ImgDescriptor> res = SearchEngine.searchEngine(imgMat[index], (int)spinner.getValue(), facePath);
+									// create results file
+									Output.toHTML(res, RecognitionParameters.BASE_URI_SEARCH_ENGINE_FD, RecognitionParameters.SEARCH_ENGINE_HTML_FD);
+									// show results file
 									Desktop.getDesktop().browse(RecognitionParameters.SEARCH_ENGINE_HTML_FD.toURI());
 								}
 								catch(ClassNotFoundException e1){
@@ -223,6 +254,7 @@ public class SearchEngineFrame {
 						});
 						frame.getContentPane().add(lblFace);
 						
+						// adjust images positions on GUI
 						if(((i+1) % 3) == 0){
 							x_offset = 40 + WIDTH;
 							y_offset += 60;
@@ -232,8 +264,13 @@ public class SearchEngineFrame {
 					}
 				}
 				else{
+					/* no face detection */
 					try{
-						SearchEngine.searchEngine(txtPath.getText(), (int)spinner.getValue());
+						// search selected image most similar images
+						List<ImgDescriptor> res = SearchEngine.searchEngine(txtPath.getText(), (int)spinner.getValue());
+						// create results file
+						Output.toHTML(res, RecognitionParameters.BASE_URI_SEARCH_ENGINE, RecognitionParameters.SEARCH_ENGINE_HTML);
+						// show results file
 						Desktop.getDesktop().browse(RecognitionParameters.SEARCH_ENGINE_HTML.toURI());
 					}
 					catch(ClassNotFoundException e1){

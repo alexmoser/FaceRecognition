@@ -13,7 +13,7 @@ import it.unipi.ing.mim.utilities.CsvFileWriter;
 /**
  * This class only contains a main that is intended to be launched once.
  * The difference is that before evaluating the distance, the face needs to be detected.
- * Function is anologous to CreateDistanceFile, see such class for further details.
+ * Function is analogous to CreateDistanceFile, see such class for further details.
  * */
 public class CreateDistanceFileFaceDetection {
 
