@@ -24,7 +24,7 @@ In the main directory the following folders should be found:
          to be placed in "data/haarcascades/"
 
       5. The descriptors of the images of the database lfw_funneled: this file can be created by running the method "CreateFeaturesFile", but due to timing reason we decided to make it available at the following link: https://drive.google.com/open?id=0B3GDol5zeu2Zbkg0aWRWRVdWSUk,
-         to be placed in "data/seqFeaturesFile.dat"
+         to be saved as "data/seqFeaturesFile.dat"
 
   - <i>lib</i>: contains the needed libraries. Such libraries are:
                 javacpp, javacv, opencv
